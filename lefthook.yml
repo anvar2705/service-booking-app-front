@@ -1,0 +1,12 @@
+# Refer for explanation to following link:
+# https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-commit:
+    parallel: true
+    commands:
+        lint:
+            glob: '*.{js,jsx,ts,tsx}'
+            run: npx eslint {staged_files} --fix && git add {staged_files}
+        pretty:
+            glob: '*.{css,html,json,less,md,scss,yml}'
+            run: npx prettier --write --log-level error {staged_files} && git add {staged_files}
