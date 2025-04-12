@@ -2,8 +2,10 @@ export const APP_ROOT_ROUT_PATH = "/";
 
 export const AuthenticationRoutePathEnum = Object.freeze({
     AUTH_ASTERISK: "/auth/*",
-    AUTH_LOGIN: "/auth/login",
-    LOGIN: "/login",
+    AUTH_SIGN_IN: "/auth/sign-in",
+    AUTH_SIGN_UP: "/auth/sign-up",
+    SIGN_IN: "/sign-in",
+    SIGN_UP: "/sign-up",
     ACCESS_DENIED: "/access-denied",
 } as const);
 

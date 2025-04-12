@@ -10,9 +10,9 @@ import { TagTypesEnum } from "@shared/api-client";
 
 import type { LoginFormValues } from "../types";
 
-export const useLoginMutation = buildMutationHook({
+export const useSignInMutation = buildMutationHook({
     mutationFn: async (credentials: LoginFormValues) => {
-        const response = (await axiosInstance.post<AccessTokenData>("/login", credentials)).data;
+        const response = (await axiosInstance.post<AccessTokenData>("/auth/sign-in", credentials)).data;
         const { access_token: token } = response;
         const expire = generateAccessTokenExpire();
         accessTokenStorage.set(token, expire);

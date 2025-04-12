@@ -15,6 +15,11 @@ export function ThemeProvider({ children }: PropsWithChildren) {
                     components: {
                         MuiLink: { defaultProps: { component: LinkBehavior } },
                         MuiButtonBase: { defaultProps: { LinkComponent: LinkBehavior } },
+                        MuiButton: {
+                            defaultProps: {
+                                variant: "contained",
+                            },
+                        },
                         MuiTextField: {
                             defaultProps: {
                                 size: "small",

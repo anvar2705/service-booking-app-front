@@ -1,16 +1,19 @@
 {
-    "loginForm": {
-        "formTitle": "Авторизация",
-        "loginType": {
-            "byLogin": "По логину",
-            "byEmail": "По Email",
-            "byDomain": "Вход через Active Directory"
-        }
+    "signInForm": {
+        "title": "Вход",
+        "signIn": "Войти",
+        "signUpHelperText": "Или",
+        "signUp": "зарегистрироваться"
+    },
+    "signUpForm": {
+        "title": "Регистрация",
+        "signUp": "Зарегистрироваться",
+        "signInHelperText": "Или",
+        "signIn": "войти"
     },
     "changePasswordForm": {
         "invalidPasswordConfirmation": "Пароли не совпадают"
     },
-    "CSRFTokenLoading": "Получение CSRF токена...",
     "authenticationLoading": "Аутентификация...",
     "accountLoading": "Получение данных пользователя...",
     "loginLoading": "Вход...",

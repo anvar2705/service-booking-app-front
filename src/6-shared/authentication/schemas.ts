@@ -2,7 +2,6 @@ import z from "zod";
 
 import {
     LoginSchemaFieldNameEnum,
-    LoginTypeEnum,
     MAX_LOGIN_LENGTH,
     MAX_PASSWORD_LENGTH,
     MIN_LOGIN_LENGTH,
@@ -16,10 +15,6 @@ export const LoginSchema = z.object({
 
 export const EmailSchema = z.object({
     [LoginSchemaFieldNameEnum.EMAIL]: z.string().email(),
-});
-
-export const DomainSchema = z.object({
-    [LoginSchemaFieldNameEnum.DOMAIN]: z.string(),
 });
 
 export const PasswordSchema = z.object({
@@ -37,14 +32,4 @@ export const ChangePasswordSchema = PasswordConfirmationSchema.extend({
 export const PasswordConfirmationSchemaWithRefine = withPasswordRefine(PasswordConfirmationSchema);
 export const ChangePasswordSchemaWithRefine = withPasswordRefine(ChangePasswordSchema);
 
-const BaseLoginSchema = PasswordSchema.extend({
-    // todo: add extra common login attributes
-});
-
-export const ByLoginSchema = BaseLoginSchema.and(LoginSchema);
-export const ByDomainSchema = BaseLoginSchema.and(LoginSchema).and(DomainSchema);
-
-export const LoginSchemasEnum = Object.freeze({
-    [LoginTypeEnum.LOGIN]: ByLoginSchema,
-    [LoginTypeEnum.DOMAIN]: ByDomainSchema,
-} as const);
+export const BaseLoginSchema = LoginSchema.and(PasswordSchema);

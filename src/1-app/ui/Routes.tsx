@@ -18,7 +18,7 @@ const CalendarPageRoutes = lazy(async () => await import("@pages/calendar"));
 export function Routes() {
     const { pathname } = useStaticLocation();
     const isAuthenticated = useIsAuthenticated();
-    let indexNavigatePath: string = AuthenticationRoutePathEnum.LOGIN;
+    let indexNavigatePath: string = CalendarRoutePathEnum.CALENDAR;
 
     if (pathname === APP_ROOT_ROUT_PATH) {
         const mode = import.meta.env.MODE;
@@ -35,7 +35,7 @@ export function Routes() {
                 {isAuthenticated ? (
                     <Route index element={<Navigate to={indexNavigatePath} replace />} />
                 ) : (
-                    <Route index element={<Navigate to={AuthenticationRoutePathEnum.AUTH_LOGIN} replace />} />
+                    <Route index element={<Navigate to={AuthenticationRoutePathEnum.AUTH_SIGN_IN} replace />} />
                 )}
 
                 <Route path={AuthenticationRoutePathEnum.AUTH_ASTERISK} element={<AuthenticationPageRoutes />} />
