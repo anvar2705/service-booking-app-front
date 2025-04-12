@@ -1,0 +1,42 @@
+import { useMemo, type PropsWithChildren } from "react";
+
+import { ThemeProvider as MaterialThemeProvider, CssBaseline, createTheme } from "@mui/material";
+
+import { useLocale } from "@shared/i18n";
+import { LinkBehavior } from "@shared/routes/ui/LinkBehavior";
+
+export function ThemeProvider({ children }: PropsWithChildren) {
+    const locale = useLocale();
+
+    const theme = useMemo(
+        () =>
+            createTheme(
+                {
+                    components: {
+                        MuiLink: { defaultProps: { component: LinkBehavior } },
+                        MuiButtonBase: { defaultProps: { LinkComponent: LinkBehavior } },
+                        MuiTextField: {
+                            defaultProps: {
+                                size: "small",
+                                fullWidth: true,
+                            },
+                        },
+                        MuiSkeleton: {
+                            defaultProps: {
+                                variant: "rounded",
+                            },
+                        },
+                    },
+                },
+                ...locale,
+            ),
+        [locale],
+    );
+
+    return (
+        <MaterialThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+        </MaterialThemeProvider>
+    );
+}
