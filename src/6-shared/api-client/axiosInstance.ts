@@ -13,7 +13,7 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
     config.headers.set("Accept", "application/json");
 
-    const [accessToken] = accessTokenStorage.get();
+    const accessToken = accessTokenStorage.get();
 
     if (accessToken) {
         try {

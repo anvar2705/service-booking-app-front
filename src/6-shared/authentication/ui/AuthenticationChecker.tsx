@@ -37,8 +37,6 @@ export function AuthenticationChecker() {
             return;
         }
 
-        console.log("path", path);
-
         void navigate(path, { replace });
     }, [navigate, path, replace]);
 

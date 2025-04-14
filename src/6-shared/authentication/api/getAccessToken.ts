@@ -3,8 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { accessTokenStorage, buildQueryHook, TagTypesEnum } from "@shared/api-client";
 
 const getAccessToken = () => {
-    const [token] = accessTokenStorage.get();
-    return token;
+    return accessTokenStorage.get();
 };
 
 export const useGetAccessTokenQuery = buildQueryHook({

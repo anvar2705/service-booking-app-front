@@ -1,4 +1,10 @@
-import { accessTokenStorage, buildMutationHook, queryClient, TagTypesEnum } from "@shared/api-client";
+import {
+    accessTokenStorage,
+    buildMutationHook,
+    queryClient,
+    refreshTokenStorage,
+    TagTypesEnum,
+} from "@shared/api-client";
 
 export const useSignOutMutation = buildMutationHook({
     mutationFn: () =>
@@ -7,10 +13,19 @@ export const useSignOutMutation = buildMutationHook({
         }),
     onMutate: () => {
         accessTokenStorage.remove();
+        refreshTokenStorage.remove();
     },
     onSuccess: () => {
         void queryClient.invalidateQueries({
-            queryKey: [TagTypesEnum.ACCESS_TOKEN],
+            predicate: (query) => {
+                const [tagType] = query.queryKey;
+
+                return (
+                    tagType === TagTypesEnum.ACCESS_TOKEN ||
+                    tagType === TagTypesEnum.REFRESH_TOKEN ||
+                    tagType === TagTypesEnum.ACCOUNT
+                );
+            },
         });
     },
 });

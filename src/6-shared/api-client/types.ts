@@ -13,7 +13,6 @@ export type BuildQueryHookResult<
 > = ReturnType<typeof buildQueryHook<TQueryFnData, TError, TData, TQueryKey>>;
 
 export type Token = string;
-export type TokenType = string;
-export type AccessTokenData = { access_token: Token; token_type: TokenType };
+export type TokensData = { access_token: Token; refresh_token: Token };
 
 export type AppTagType = (typeof TagTypesEnum)[keyof typeof TagTypesEnum];

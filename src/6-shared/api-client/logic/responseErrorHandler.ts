@@ -1,14 +1,30 @@
 import { enqueueSnackbar } from "notistack";
 
-import { STRONG_ERROR_MESSAGE_DURATION, TagTypesEnum } from "../constants";
-import { queryClient } from "../queryClient";
+import { STRONG_ERROR_MESSAGE_DURATION } from "../constants";
+import axios from "axios";
+import { refreshTokenStorage } from "./refresh-token/refreshTokenStorage";
+import { TokensData } from "../types";
+import { accessTokenStorage } from "./access-token/accessTokenStorage";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const responseErrorHandler = (error: any) => {
+export const responseErrorHandler = async (error: any) => {
     if (error.status === 401) {
-        void queryClient.invalidateQueries({
-            queryKey: [TagTypesEnum.ACCESS_TOKEN],
-        });
+        try {
+            const refreshToken = refreshTokenStorage.get();
+            if (refreshToken) {
+                const response = (
+                    await axios.post<TokensData>("/api/auth/refresh-tokens", { refresh_token: refreshToken })
+                ).data;
+                console.log("response", response);
+                accessTokenStorage.set(response.access_token);
+                refreshTokenStorage.set(response.refresh_token);
+                return;
+            } else {
+                window.location.href = "/auth/sign-in";
+            }
+        } catch {
+            console.log("refresh token error");
+        }
     }
 
     try {

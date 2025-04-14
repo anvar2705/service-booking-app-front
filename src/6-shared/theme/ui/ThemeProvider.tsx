@@ -19,6 +19,11 @@ export function ThemeProvider({ children }: PropsWithChildren) {
                             defaultProps: {
                                 variant: "contained",
                             },
+                            styleOverrides: {
+                                root: {
+                                    textTransform: "none",
+                                },
+                            },
                         },
                         MuiTextField: {
                             defaultProps: {

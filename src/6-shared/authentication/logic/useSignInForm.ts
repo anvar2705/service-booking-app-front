@@ -18,7 +18,7 @@ export const useSignInForm = () => {
     const { mutateAsync: signIn, isPending } = useSignInMutation();
 
     const handleSignIn = ({ data }: { data: LoginFormValues }) => {
-        signIn(data).then(() => {});
+        signIn(data);
     };
 
     const handleSignUp = () => {

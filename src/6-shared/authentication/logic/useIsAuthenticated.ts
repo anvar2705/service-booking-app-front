@@ -1,5 +1,9 @@
 import { useGetAccessTokenQuery } from "../api/getAccessToken";
+import { useGetRefreshTokenQuery } from "../api/getRefreshToken";
 
 export function useIsAuthenticated() {
-    return Boolean(useGetAccessTokenQuery().data);
+    const { data: accessToken } = useGetAccessTokenQuery();
+    const { data: refreshToken } = useGetRefreshTokenQuery();
+
+    return Boolean(accessToken && refreshToken);
 }
