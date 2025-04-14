@@ -20,11 +20,7 @@ export const useSignOutMutation = buildMutationHook({
             predicate: (query) => {
                 const [tagType] = query.queryKey;
 
-                return (
-                    tagType === TagTypesEnum.ACCESS_TOKEN ||
-                    tagType === TagTypesEnum.REFRESH_TOKEN ||
-                    tagType === TagTypesEnum.ACCOUNT
-                );
+                return tagType === TagTypesEnum.ACCESS_TOKEN || tagType === TagTypesEnum.REFRESH_TOKEN;
             },
         });
     },

@@ -9,9 +9,11 @@ import {
     APP_ROOT_ROUT_PATH,
     useStaticLocation,
     CalendarRoutePathEnum,
+    SettingsRoutePathEnum,
 } from "@shared/routes";
 
 import { useIsAuthenticated } from "@shared/authentication";
+import { SettingsPageRoutes } from "@pages/settings/ui/SettingsPageRoutes";
 
 const CalendarPageRoutes = lazy(async () => await import("@pages/calendar"));
 
@@ -40,6 +42,7 @@ export function Routes() {
 
                 <Route path={AuthenticationRoutePathEnum.AUTH_ASTERISK} element={<AuthenticationPageRoutes />} />
                 <Route path={CalendarRoutePathEnum.CALENDAR_ASTERISK} element={<CalendarPageRoutes />} />
+                <Route path={SettingsRoutePathEnum.SETTINGS_ASTERISK} element={<SettingsPageRoutes />} />
             </RoutesWithPageNotFound>
         </Suspense>
     );

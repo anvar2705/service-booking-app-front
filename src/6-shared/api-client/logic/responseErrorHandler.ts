@@ -15,7 +15,6 @@ export const responseErrorHandler = async (error: any) => {
                 const response = (
                     await axios.post<TokensData>("/api/auth/refresh-tokens", { refresh_token: refreshToken })
                 ).data;
-                console.log("response", response);
                 accessTokenStorage.set(response.access_token);
                 refreshTokenStorage.set(response.refresh_token);
                 return;
