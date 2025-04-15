@@ -1,12 +1,14 @@
-import { Button, IconButton, Menu, MenuItem, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSignOutMutation } from "@shared/authentication/api/signOut";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { AuthenticationRoutePathEnum, useStaticNavigate } from "@shared/routes";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Button, IconButton, Menu, MenuItem, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+
 import { useGetAccountQuery } from "@entities/account";
-import { useMainMenuCollapsed, toggleMainMenuCollapsed } from "@widgets/main-menu";
+import { useSignOutMutation } from "@shared/authentication/api/signOut";
+import { AuthenticationRoutePathEnum, useStaticNavigate } from "@shared/routes";
+import { toggleMainMenuCollapsed,useMainMenuCollapsed } from "@widgets/main-menu";
+
 import { AppBar } from "./AppBar";
 
 export const Header = () => {

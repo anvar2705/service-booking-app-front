@@ -1,7 +1,6 @@
 import { type PropsWithChildren, useEffect, useState } from "react";
 
 // import { useMainLoading } from "@rusiem-ui/mui-loading";
-
 import { useI18n } from "../logic/useI18n";
 
 export function I18nNamespaceLoading({ ns, children }: PropsWithChildren<{ ns: string | readonly string[] }>) {

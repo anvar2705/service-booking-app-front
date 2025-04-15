@@ -1,10 +1,11 @@
+import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 
 import { STRONG_ERROR_MESSAGE_DURATION } from "../constants";
-import axios from "axios";
-import { refreshTokenStorage } from "./refresh-token/refreshTokenStorage";
 import { TokensData } from "../types";
+
 import { accessTokenStorage } from "./access-token/accessTokenStorage";
+import { refreshTokenStorage } from "./refresh-token/refreshTokenStorage";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const responseErrorHandler = async (error: any) => {

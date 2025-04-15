@@ -1,10 +1,12 @@
-import { useForm } from "@shared/components/form/Form";
-import { BaseLoginSchema } from "../schemas";
 import { useTranslation } from "react-i18next";
+
+import { useForm } from "@shared/components/form/Form";
 import { NamespaceEnum } from "@shared/i18n";
-import { useSignInMutation } from "../api/signIn";
-import { LoginFormValues } from "../types";
 import { AuthenticationRoutePathEnum, useStaticNavigate } from "@shared/routes";
+
+import { useSignInMutation } from "../api/signIn";
+import { BaseLoginSchema } from "../schemas";
+import { LoginFormValues } from "../types";
 
 export const useSignUpForm = () => {
     const { t } = useTranslation(NamespaceEnum.AUTHENTICATION);

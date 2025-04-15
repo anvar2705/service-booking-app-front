@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
-
-import { Button, Stack } from "@mui/material";
 import { useLocation } from "react-router";
+import { Button, Stack } from "@mui/material";
+
+import { Result } from "@shared/components/Result";
+
 import { useErrorFallback } from "../logic/useErrorFallback";
 import { ErrorFallbackProps } from "../types";
-import { Result } from "@shared/components/Result";
 
 export function ErrorFallback(props: ErrorFallbackProps) {
     const { title, message, stack, isDetailsShowed, reset, resetText, setIsDetailsShowed, showDetailsText } =

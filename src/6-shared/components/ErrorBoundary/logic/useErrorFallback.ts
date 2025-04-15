@@ -1,7 +1,9 @@
 import { useState } from "react";
+
+import { helpers } from "@shared/utils";
+
 import { DYNAMICALLY_IMPORTED_MODULE_ERROR_MESSAGE } from "../constants";
 import type { ErrorFallbackProps } from "../types";
-import { helpers } from "@shared/utils";
 
 export function useErrorFallback(props: ErrorFallbackProps) {
     const { error, resetErrorBoundary, translations } = props;

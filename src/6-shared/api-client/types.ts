@@ -1,7 +1,7 @@
 import { type DefaultError, type QueryKey } from "@tanstack/react-query";
 
-import type { TagTypesEnum } from "./constants";
 import { type buildQueryHook } from "./logic/buildQueryHook";
+import type { TagTypesEnum } from "./constants";
 
 export type LazyTanstackQueryHook<Data> = () => () => Promise<Data>;
 

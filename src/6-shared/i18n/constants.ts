@@ -1,6 +1,6 @@
-import { ruRU as coreRuRU, enUS as coreEnUS } from "@mui/material/locale";
-import { ruRU as xDataGridRuRU, enUS as xDataGridEnUS } from "@mui/x-data-grid/locales";
-import { ruRU as xDataPickersRuRU, enUS as xDataPickersEnUS } from "@mui/x-date-pickers/locales";
+import { enUS as coreEnUS,ruRU as coreRuRU } from "@mui/material/locale";
+import { enUS as xDataGridEnUS,ruRU as xDataGridRuRU } from "@mui/x-data-grid/locales";
+import { enUS as xDataPickersEnUS,ruRU as xDataPickersRuRU } from "@mui/x-date-pickers/locales";
 
 export const LanguageNameEnum = Object.freeze({
     RU: "ru",

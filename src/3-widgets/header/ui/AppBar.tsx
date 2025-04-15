@@ -1,4 +1,5 @@
-import { styled, AppBar as MuiAppBar, AppBarProps as MuiAppBarProps } from "@mui/material";
+import { AppBar as MuiAppBar, AppBarProps as MuiAppBarProps,styled } from "@mui/material";
+
 import { DRAWER_WIDTH } from "@widgets/main-menu";
 
 interface AppBarProps extends MuiAppBarProps {

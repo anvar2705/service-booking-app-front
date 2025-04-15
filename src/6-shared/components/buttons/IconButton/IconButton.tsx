@@ -1,4 +1,4 @@
-import { Tooltip, IconButton as IconButtonMui, type IconButtonProps } from "@mui/material";
+import { IconButton as IconButtonMui, type IconButtonProps,Tooltip } from "@mui/material";
 
 export function IconButton(props: IconButtonProps) {
     const { title, disabled, onClick, children, ...iconBtnProps } = props;

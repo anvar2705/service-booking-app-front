@@ -1,7 +1,8 @@
+import { PropsWithChildren } from "react";
 import { styled } from "@mui/material";
+
 import { useMainMenuCollapsed } from "@widgets/main-menu";
 import { DRAWER_WIDTH } from "@widgets/main-menu";
-import { PropsWithChildren } from "react";
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "isMainMenuCollapsed" })<{
     isMainMenuCollapsed?: boolean;

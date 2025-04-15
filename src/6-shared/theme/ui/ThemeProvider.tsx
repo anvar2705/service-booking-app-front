@@ -1,6 +1,5 @@
-import { useMemo, type PropsWithChildren } from "react";
-
-import { ThemeProvider as MaterialThemeProvider, CssBaseline, createTheme } from "@mui/material";
+import { type PropsWithChildren,useMemo } from "react";
+import { createTheme,CssBaseline, ThemeProvider as MaterialThemeProvider } from "@mui/material";
 
 import { useLocale } from "@shared/i18n";
 import { LinkBehavior } from "@shared/routes/ui/LinkBehavior";

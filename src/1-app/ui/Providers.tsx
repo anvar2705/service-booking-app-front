@@ -1,14 +1,13 @@
 import type { PropsWithChildren } from "react";
-
 import { SnackbarProvider } from "notistack";
 
+import { DateLocalizationProvider } from "@shared/components/DateLocalizationProvider";
 import { ErrorBoundary } from "@shared/components/ErrorBoundary";
 import { I18nProvider, LanguageNameEnum, useI18n } from "@shared/i18n";
+import { RouterProvider } from "@shared/routes";
 import { ThemeProvider } from "@shared/theme";
 
 import { ReactQueryProvider } from "./ReactQueryProvider";
-import { RouterProvider } from "@shared/routes";
-import { DateLocalizationProvider } from "@shared/components/DateLocalizationProvider";
 
 function DateLocalizationProviderWithLang({ children }: PropsWithChildren) {
     const i18n = useI18n();

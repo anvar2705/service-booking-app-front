@@ -1,9 +1,9 @@
+import { AuthenticationChecker } from "@shared/authentication";
 import { ErrorBoundary } from "@shared/components/ErrorBoundary";
 
+import { Layout } from "./layout/Layout";
 import { Providers } from "./Providers";
 import { Routes } from "./Routes";
-import { AuthenticationChecker } from "@shared/authentication";
-import { Layout } from "./layout/Layout";
 
 export function App() {
     return (

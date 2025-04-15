@@ -1,7 +1,9 @@
+import { PropsWithChildren } from "react";
+
 import { useIsAuthenticated } from "@shared/authentication";
 import { Header } from "@widgets/header";
 import { MainMenu } from "@widgets/main-menu";
-import { PropsWithChildren } from "react";
+
 import { Content } from "./Content";
 
 export const Layout = (props: PropsWithChildren) => {

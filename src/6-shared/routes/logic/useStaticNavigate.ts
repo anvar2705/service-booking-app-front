@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { useStaticRouter } from "./useStaticRouter";
 
 export function useStaticNavigate() {

@@ -1,10 +1,10 @@
 import {
-    type TokensData,
     accessTokenStorage,
     axiosInstance,
     buildMutationHook,
     queryClient,
     refreshTokenStorage,
+    type TokensData,
 } from "@shared/api-client";
 import { TagTypesEnum } from "@shared/api-client";
 

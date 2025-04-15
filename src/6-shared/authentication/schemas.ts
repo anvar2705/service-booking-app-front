@@ -1,5 +1,6 @@
 import z from "zod";
 
+import { withPasswordRefine } from "./logic/withPasswordRefine";
 import {
     LoginSchemaFieldNameEnum,
     MAX_LOGIN_LENGTH,
@@ -7,7 +8,6 @@ import {
     MIN_LOGIN_LENGTH,
     MIN_PASSWORD_LENGTH,
 } from "./constants";
-import { withPasswordRefine } from "./logic/withPasswordRefine";
 
 export const LoginSchema = z.object({
     [LoginSchemaFieldNameEnum.LOGIN]: z.string().min(MIN_LOGIN_LENGTH).max(MAX_LOGIN_LENGTH),

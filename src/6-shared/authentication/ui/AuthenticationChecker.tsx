@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-
 import { useMatch } from "react-router";
 
 import { APP_ROOT_ROUT_PATH, AuthenticationRoutePathEnum, useStaticLocation, useStaticNavigate } from "@shared/routes";

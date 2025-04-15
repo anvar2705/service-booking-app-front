@@ -1,5 +1,4 @@
 import type { PropsWithChildren } from "react";
-
 import { Route, Routes } from "react-router";
 
 import { PageNotFound } from "./PageNotFound";

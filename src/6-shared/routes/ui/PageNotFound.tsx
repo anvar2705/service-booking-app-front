@@ -1,7 +1,9 @@
-import { Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useStaticNavigate } from "../logic/useStaticNavigate";
+import { Button } from "@mui/material";
+
 import { Result } from "@shared/components/Result";
+
+import { useStaticNavigate } from "../logic/useStaticNavigate";
 
 export function PageNotFound() {
     const { t } = useTranslation();

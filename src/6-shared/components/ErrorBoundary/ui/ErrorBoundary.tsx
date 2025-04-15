@@ -1,7 +1,9 @@
 import type { ComponentType, PropsWithChildren } from "react";
-import { type FallbackProps, ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
-import type { ErrorFallbackTranslations, ErrorFallbackProps, ErrorBoundaryProps } from "../types";
+import { ErrorBoundary as ReactErrorBoundary,type FallbackProps } from "react-error-boundary";
+
 import { useErrorFallbackTranslations } from "../logic/useErrorFallbackTranslations";
+import type { ErrorBoundaryProps,ErrorFallbackProps, ErrorFallbackTranslations } from "../types";
+
 import { ErrorFallback } from "./ErrorFallback";
 
 function withTranslation(WrappedComponent: ComponentType<ErrorFallbackProps>, translations: ErrorFallbackTranslations) {

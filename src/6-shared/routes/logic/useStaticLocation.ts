@@ -1,4 +1,5 @@
 import type { Location } from "react-router";
+
 import { useStaticRouter } from "./useStaticRouter";
 
 export function useStaticLocation<T>() {

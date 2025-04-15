@@ -1,7 +1,9 @@
-import { ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { MenuItemProps } from "../types";
-import { useStaticNavigate } from "@shared/routes";
 import { useLocation } from "react-router";
+import { ListItem, ListItemButton, ListItemText } from "@mui/material";
+
+import { useStaticNavigate } from "@shared/routes";
+
+import { MenuItemProps } from "../types";
 
 export const MenuItem = (props: MenuItemProps) => {
     const { item } = props;

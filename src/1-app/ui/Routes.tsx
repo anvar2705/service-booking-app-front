@@ -1,19 +1,17 @@
 import { lazy, Suspense } from "react";
-
 import { Navigate, Route } from "react-router";
 
 import { AuthenticationPageRoutes } from "@pages/authentication";
-import {
-    AuthenticationRoutePathEnum,
-    RoutesWithPageNotFound,
-    APP_ROOT_ROUT_PATH,
-    useStaticLocation,
-    CalendarRoutePathEnum,
-    SettingsRoutePathEnum,
-} from "@shared/routes";
-
-import { useIsAuthenticated } from "@shared/authentication";
 import { SettingsPageRoutes } from "@pages/settings/ui/SettingsPageRoutes";
+import { useIsAuthenticated } from "@shared/authentication";
+import {
+    APP_ROOT_ROUT_PATH,
+    AuthenticationRoutePathEnum,
+    CalendarRoutePathEnum,
+    RoutesWithPageNotFound,
+    SettingsRoutePathEnum,
+    useStaticLocation,
+} from "@shared/routes";
 
 const CalendarPageRoutes = lazy(async () => await import("@pages/calendar"));
 

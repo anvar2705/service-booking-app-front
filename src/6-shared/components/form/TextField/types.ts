@@ -1,5 +1,5 @@
-import type { TextFieldProps as MuiTextFieldProps, TextFieldVariants } from "@mui/material";
 import type { FieldPath, FieldValues, UseControllerProps } from "react-hook-form";
+import type { TextFieldProps as MuiTextFieldProps, TextFieldVariants } from "@mui/material";
 
 export type TextFieldProps<
     TFieldValues extends FieldValues,

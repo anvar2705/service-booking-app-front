@@ -1,12 +1,15 @@
-import { Box, Divider, Drawer, IconButton } from "@mui/material";
-import { setMainMenuCollapsed, useMainMenuCollapsed } from "../logic/store";
-import { MenuItem as MenuItemComponent } from "./MenuItem";
-import { MenuItem } from "../types";
-import { CalendarRoutePathEnum, SettingsRoutePathEnum } from "@shared/routes";
 import { useTranslation } from "react-i18next";
-import { NamespaceEnum } from "@shared/i18n";
-import { DRAWER_WIDTH } from "../constants";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { Box, Divider, Drawer, IconButton } from "@mui/material";
+
+import { NamespaceEnum } from "@shared/i18n";
+import { CalendarRoutePathEnum, SettingsRoutePathEnum } from "@shared/routes";
+
+import { DRAWER_WIDTH } from "../constants";
+import { setMainMenuCollapsed, useMainMenuCollapsed } from "../logic/store";
+import { MenuItem } from "../types";
+
+import { MenuItem as MenuItemComponent } from "./MenuItem";
 
 export const MainMenu = () => {
     const collapsed = useMainMenuCollapsed();

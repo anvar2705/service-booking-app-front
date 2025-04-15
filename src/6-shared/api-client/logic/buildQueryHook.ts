@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-
 import { type DefaultError, type QueryKey, useQuery, type UseQueryOptions } from "@tanstack/react-query";
 
 import { queryClient } from "../queryClient";

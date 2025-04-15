@@ -1,5 +1,6 @@
-import { MainMenuStore } from "../types";
 import { create } from "zustand";
+
+import { MainMenuStore } from "../types";
 
 export const useStore = create<MainMenuStore>(() => ({
     collapsed: true,

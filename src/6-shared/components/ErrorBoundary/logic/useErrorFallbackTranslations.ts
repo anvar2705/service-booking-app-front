@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-
 import { useTranslation } from "react-i18next";
 
 import { NamespaceEnum } from "@shared/i18n";
+
 import { ErrorFallbackTranslations } from "../types";
 
 export const useErrorFallbackTranslations = () => {

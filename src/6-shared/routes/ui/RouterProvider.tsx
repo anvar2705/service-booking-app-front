@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { createBrowserRouter, RouterProvider as ReactRouterProvider } from "react-router";
+
 import { routerContext } from "../logic/context";
 
 export function RouterProvider({ children }: PropsWithChildren) {

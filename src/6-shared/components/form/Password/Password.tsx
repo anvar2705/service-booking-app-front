@@ -1,12 +1,12 @@
-import { type TextFieldVariants, InputAdornment } from "@mui/material";
+import { useState } from "react";
 import { type FieldPath, type FieldValues } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { InputAdornment,type TextFieldVariants } from "@mui/material";
 
 import { IconButton } from "../../buttons/IconButton";
 import { TextField, TextFieldProps } from "../TextField";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
 export function Password<
     TFieldValues extends FieldValues,
