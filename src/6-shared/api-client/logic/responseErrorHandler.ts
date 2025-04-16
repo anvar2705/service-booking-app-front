@@ -1,11 +1,24 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { enqueueSnackbar } from "notistack";
 
-import { STRONG_ERROR_MESSAGE_DURATION } from "../constants";
+import { STRONG_ERROR_MESSAGE_DURATION, TagTypesEnum } from "../constants";
+import { queryClient } from "../queryClient";
 import { TokensData } from "../types";
 
 import { accessTokenStorage } from "./access-token/accessTokenStorage";
 import { refreshTokenStorage } from "./refresh-token/refreshTokenStorage";
+
+const removeTokens = () => {
+    accessTokenStorage.remove();
+    refreshTokenStorage.remove();
+    queryClient.invalidateQueries({
+        predicate: (query) => {
+            const [tagType] = query.queryKey;
+
+            return tagType === TagTypesEnum.ACCESS_TOKEN || tagType === TagTypesEnum.REFRESH_TOKEN;
+        },
+    });
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const responseErrorHandler = async (error: any) => {
@@ -20,10 +33,12 @@ export const responseErrorHandler = async (error: any) => {
                 refreshTokenStorage.set(response.refresh_token);
                 return;
             } else {
-                window.location.href = "/auth/sign-in";
+                removeTokens();
             }
-        } catch {
-            console.log("refresh token error");
+        } catch (error: unknown) {
+            if (isAxiosError(error) && error.status === 401) {
+                removeTokens();
+            }
         }
     }
 
