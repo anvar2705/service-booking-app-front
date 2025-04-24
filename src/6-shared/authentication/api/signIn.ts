@@ -1,7 +1,8 @@
+import { DefaultError, UseMutationOptions } from "@tanstack/react-query";
+
 import {
     accessTokenStorage,
     axiosInstance,
-    buildMutationHook,
     queryClient,
     refreshTokenStorage,
     type TokensData,
@@ -10,7 +11,7 @@ import { TagTypesEnum } from "@shared/api-client";
 
 import type { LoginFormValues } from "../types";
 
-export const useSignInMutation = buildMutationHook({
+export const signInMutationOptions: UseMutationOptions<void, DefaultError, LoginFormValues> = {
     mutationFn: async (credentials: LoginFormValues) => {
         const response = (await axiosInstance.post<TokensData>("/auth/sign-in", credentials)).data;
         const { access_token, refresh_token } = response;
@@ -30,4 +31,4 @@ export const useSignInMutation = buildMutationHook({
             },
         });
     },
-});
+};

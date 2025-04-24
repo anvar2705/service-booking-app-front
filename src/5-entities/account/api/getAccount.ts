@@ -1,7 +1,11 @@
-import { EmployeeModel } from "@entities/employee";
-import { axiosInstance, buildQueryHook, TagTypesEnum } from "@shared/api-client";
+import { queryOptions } from "@tanstack/react-query";
 
-export const useGetAccountQuery = buildQueryHook({
-    queryFn: async () => (await axiosInstance.get<EmployeeModel>("/auth/account")).data,
-    queryKey: [TagTypesEnum.ACCOUNT],
-});
+import { axiosInstance, TagTypesEnum } from "@shared/api-client";
+
+import { AccountModel } from "../types";
+
+export const getAccountQueryOptions = () =>
+    queryOptions({
+        queryFn: async () => (await axiosInstance.get<AccountModel>("/auth/account")).data,
+        queryKey: [TagTypesEnum.ACCOUNT],
+    });

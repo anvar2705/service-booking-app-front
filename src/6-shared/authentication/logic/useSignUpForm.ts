@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
 
 import { useForm } from "@shared/components/form/Form";
 import { NamespaceEnum } from "@shared/i18n";
 import { AuthenticationRoutePathEnum, useStaticNavigate } from "@shared/routes";
 
-import { useSignInMutation } from "../api/signIn";
+import { signInMutationOptions } from "../api/signIn";
 import { BaseLoginSchema } from "../schemas";
 import { LoginFormValues } from "../types";
 
@@ -17,7 +18,7 @@ export const useSignUpForm = () => {
         schema: BaseLoginSchema,
     });
 
-    const { mutateAsync: signIn, isPending } = useSignInMutation();
+    const { mutateAsync: signIn, isPending } = useMutation(signInMutationOptions);
 
     const handleSignIn = ({ data }: { data: LoginFormValues }) => {
         signIn(data).then(() => {});

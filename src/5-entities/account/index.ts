@@ -1,1 +1,2 @@
-export { useGetAccountQuery } from "./api/getAccount";
+export { getAccountQueryOptions } from "./api/getAccount";
+export { useAccountCompany } from "./logic/useAccountCompany";

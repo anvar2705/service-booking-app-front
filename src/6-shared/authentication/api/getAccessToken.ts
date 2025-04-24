@@ -1,15 +1,16 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQueryClient } from "@tanstack/react-query";
 
-import { accessTokenStorage, buildQueryHook, TagTypesEnum } from "@shared/api-client";
+import { accessTokenStorage, TagTypesEnum } from "@shared/api-client";
 
 const getAccessToken = () => {
     return accessTokenStorage.get();
 };
 
-export const useGetAccessTokenQuery = buildQueryHook({
-    queryFn: getAccessToken,
-    queryKey: [TagTypesEnum.ACCESS_TOKEN],
-});
+export const getAccessTokenQueryOptions = () =>
+    queryOptions({
+        queryFn: getAccessToken,
+        queryKey: [TagTypesEnum.ACCESS_TOKEN],
+    });
 
 export const useLazyGetAccessTokenQuery = () => {
     const queryClient = useQueryClient();

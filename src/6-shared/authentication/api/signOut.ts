@@ -1,12 +1,8 @@
-import {
-    accessTokenStorage,
-    buildMutationHook,
-    queryClient,
-    refreshTokenStorage,
-    TagTypesEnum,
-} from "@shared/api-client";
+import { UseMutationOptions } from "@tanstack/react-query";
 
-export const useSignOutMutation = buildMutationHook({
+import { accessTokenStorage, queryClient, refreshTokenStorage, TagTypesEnum } from "@shared/api-client";
+
+export const signOutMutationOptions: UseMutationOptions = {
     mutationFn: () =>
         new Promise((resolve) => {
             resolve(undefined);
@@ -24,4 +20,4 @@ export const useSignOutMutation = buildMutationHook({
             },
         });
     },
-});
+};

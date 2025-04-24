@@ -3,11 +3,12 @@ import { useTranslation } from "react-i18next";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button, IconButton, Menu, MenuItem, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { useGetAccountQuery } from "@entities/account";
-import { useSignOutMutation } from "@shared/authentication/api/signOut";
+import { getAccountQueryOptions } from "@entities/account";
+import { signOutMutationOptions } from "@shared/authentication";
 import { AuthenticationRoutePathEnum, useStaticNavigate } from "@shared/routes";
-import { toggleMainMenuCollapsed,useMainMenuCollapsed } from "@widgets/main-menu";
+import { toggleMainMenuCollapsed, useMainMenuCollapsed } from "@widgets/main-menu";
 
 import { AppBar } from "./AppBar";
 
@@ -18,13 +19,13 @@ export const Header = () => {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    const { mutateAsync: signOut } = useSignOutMutation();
+    const { mutateAsync: signOut } = useMutation(signOutMutationOptions);
     const {
         data: account,
         isSuccess: isSuccessAccount,
         isFetching: isFetchingAccount,
         isError: isErrorAccount,
-    } = useGetAccountQuery();
+    } = useQuery(getAccountQueryOptions());
 
     const isMainMenuCollapsed = useMainMenuCollapsed();
 
