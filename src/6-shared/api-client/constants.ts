@@ -9,12 +9,17 @@ export const STRONG_ERROR_MESSAGE_DURATION = 5000;
 
 export const DEFAULT_STALE_TIME = 3 /* minutes */ * 60 /* seconds */ * 1000; /* milliseconds */
 
+export const LIST_TAG_TYPE_ID = "LIST_TAG_TYPE_ID";
+
 export const TagTypesEnum = Object.freeze({
     ACCESS_TOKEN: "ACCESS_TOKEN",
     REFRESH_TOKEN: "REFRESH_TOKEN",
     USER: "USER",
     ROLE: "ROLE",
     ACCOUNT: "ACCOUNT",
+    EMPLOYEE: "EMPLOYEE",
+    COMPANY: "COMPANY",
+    COMPANY_EMPLOYEE: "COMPANY_EMPLOYEE",
 } as const);
 
 export const tagTypes = Object.values(TagTypesEnum);

@@ -1,0 +1,69 @@
+import { SxStyles } from "@shared/utils";
+
+export default {
+    table: {
+        border: (theme) => `1px solid ${theme.palette.divider}`,
+        borderRadius: (theme) => theme.spacing(0.5),
+    },
+    tr: {
+        display: "flex",
+        flexDirection: "row",
+
+        "&:not(:last-child)": {
+            borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+        },
+    },
+    th: {
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        padding: "0.5rem",
+    },
+    td: {
+        padding: "0.5rem",
+    },
+    resizer: {
+        position: "absolute",
+        right: 0,
+        height: "100%",
+        width: "12px",
+        userSelect: "none",
+        touchAction: "none",
+        cursor: "col-resize",
+
+        "&:after": {
+            position: "relative",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "1px",
+            height: "60%",
+            backgroundColor: (theme) => theme.palette.divider,
+            content: `""`,
+            display: "block",
+            borderRadius: "6px",
+        },
+
+        "&:hover": {
+            "&:after": {
+                width: "4px",
+                backgroundColor: (theme) => theme.palette.primary.main,
+                opacity: 0.6,
+            },
+        },
+    },
+
+    // resizer: {
+    //     position: "absolute",
+    //     // opacity: 0,
+    //     top: 0,
+    //     right: 0,
+    //     height: "100%",
+    //     width: "5px",
+    //     backgroundColor: "#27bbff",
+    //     cursor: "col-resize",
+    //     // userSelect: "none",
+    //     // touchAction: "none",
+    //     borderRadius: "6px",
+    // },
+} satisfies SxStyles;

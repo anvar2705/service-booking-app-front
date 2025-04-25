@@ -8,15 +8,18 @@ import {
     APP_ROOT_ROUT_PATH,
     AuthenticationRoutePathEnum,
     CalendarRoutePathEnum,
+    EmployeeRoutePathEnum,
     RoutesWithPageNotFound,
     SettingsRoutePathEnum,
     useStaticLocation,
 } from "@shared/routes";
 
 const CalendarPageRoutes = lazy(async () => await import("@pages/calendar"));
+const EmployeePageRoutes = lazy(async () => await import("@pages/employee"));
 
 export function Routes() {
     const { pathname } = useStaticLocation();
+
     const isAuthenticated = useIsAuthenticated();
     let indexNavigatePath: string = CalendarRoutePathEnum.CALENDAR;
 
@@ -41,6 +44,7 @@ export function Routes() {
                 <Route path={AuthenticationRoutePathEnum.AUTH_ASTERISK} element={<AuthenticationPageRoutes />} />
                 <Route path={CalendarRoutePathEnum.CALENDAR_ASTERISK} element={<CalendarPageRoutes />} />
                 <Route path={SettingsRoutePathEnum.SETTINGS_ASTERISK} element={<SettingsPageRoutes />} />
+                <Route path={EmployeeRoutePathEnum.EMPLOYEE_ASTERISK} element={<EmployeePageRoutes />} />
             </RoutesWithPageNotFound>
         </Suspense>
     );

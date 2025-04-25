@@ -19,3 +19,9 @@ export const CalendarRoutePathEnum = Object.freeze({
     CALENDAR_ASTERISK: "/calendar/*",
     CALENDAR: "/calendar",
 } as const);
+
+export const EmployeeRoutePathEnum = Object.freeze({
+    EMPLOYEE_ASTERISK: "/employee/*",
+    EMPLOYEE: "/employee",
+    EMPLOYEE_FORM: "/:id",
+} as const);

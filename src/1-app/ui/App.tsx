@@ -1,5 +1,8 @@
 import { AuthenticationChecker } from "@shared/authentication";
 import { ErrorBoundary } from "@shared/components/ErrorBoundary";
+import { Initializer, OnlyNotInitialized } from "@widgets/Initializer";
+import { OnlyInitialized } from "@widgets/Initializer/ui/OnlyInitialized";
+import { MainLoading } from "@widgets/MainLoading";
 
 import { Layout } from "./layout/Layout";
 import { Providers } from "./Providers";
@@ -9,13 +12,21 @@ export function App() {
     return (
         <ErrorBoundary>
             <Providers>
-                <AuthenticationChecker />
+                <OnlyNotInitialized>
+                    <Initializer />
+                </OnlyNotInitialized>
 
-                <Layout>
-                    <ErrorBoundary>
-                        <Routes />
-                    </ErrorBoundary>
-                </Layout>
+                <MainLoading>
+                    <OnlyInitialized>
+                        <AuthenticationChecker />
+
+                        <Layout>
+                            <ErrorBoundary>
+                                <Routes />
+                            </ErrorBoundary>
+                        </Layout>
+                    </OnlyInitialized>
+                </MainLoading>
             </Providers>
         </ErrorBoundary>
     );
