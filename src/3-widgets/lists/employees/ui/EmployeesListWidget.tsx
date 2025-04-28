@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import {
-    createColumnHelper,
+    ColumnDef,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -20,29 +20,29 @@ import sx from "./EmployeesListWidget.sx";
 import { Header } from "./Header";
 import { HeaderActions } from "./HeaderActions";
 
-const columnHelper = createColumnHelper<EmployeeModel>();
-
-const columns = [
-    columnHelper.display({
+const columns: ColumnDef<EmployeeModel>[] = [
+    {
+        accessorFn: (row) => row.user.username,
         id: "username",
-        cell: (info) => info.row.original.user.username,
-    }),
-    columnHelper.display({
+        cell: (info) => info.getValue(),
+    },
+    {
         id: "name",
         cell: (info) => {
             const { name, surname, patronymic } = info.row.original;
             return `${name} ${surname ?? ""} ${patronymic ?? ""}`;
         },
-    }),
-    columnHelper.display({
+    },
+    {
+        accessorFn: (row) => row.user.email,
         id: "email",
-        cell: (info) => info.row.original.user.email,
-    }),
-    columnHelper.display({
+        cell: (info) => info.getValue(),
+    },
+    {
         id: "actions",
         cell: CellActions,
         header: HeaderActions,
-    }),
+    },
 ];
 
 export const EmployeesListWidget = () => {
