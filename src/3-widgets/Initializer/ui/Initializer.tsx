@@ -19,7 +19,11 @@ export const Initializer = () => {
         { isSuccess: isSuccessGetAccessToken, isLoading: isLoadingGetAccessToken },
         { isSuccess: isSuccessGetRefreshToken, isLoading: isLoadingGetRefreshToken },
     ] = useQueries({
-        queries: [getAccountQueryOptions(), getAccessTokenQueryOptions(), getRefreshTokenQueryOptions()],
+        queries: [
+            { ...getAccountQueryOptions(), enabled: !isSignInPage && !isSignUpPage },
+            getAccessTokenQueryOptions(),
+            getRefreshTokenQueryOptions(),
+        ],
     });
 
     useMainLoading(Boolean(isLoadingGetAccount || isLoadingGetAccessToken || isLoadingGetRefreshToken));

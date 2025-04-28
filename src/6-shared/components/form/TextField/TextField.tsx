@@ -1,5 +1,5 @@
 import { Controller, type FieldPath, type FieldValues, useFormContext } from "react-hook-form";
-import { TextField as MuiTextField,type TextFieldVariants } from "@mui/material";
+import { TextField as MuiTextField, type TextFieldVariants } from "@mui/material";
 
 import type { TextFieldProps } from "./types";
 
@@ -49,7 +49,7 @@ export function TextField<
                             onBlur?.(...args);
                         }}
                         inputRef={ref}
-                        value={value}
+                        value={value ?? ""}
                         error={Boolean(error) || undefined}
                         helperText={error?.message ?? helperText}
                         required={textFieldProps.required ?? Boolean(rules?.required)}

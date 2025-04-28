@@ -3,7 +3,7 @@ import { type FieldPath, type FieldValues } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { InputAdornment,type TextFieldVariants } from "@mui/material";
+import { InputAdornment, type TextFieldVariants } from "@mui/material";
 
 import { IconButton } from "../../buttons/IconButton";
 import { TextField, TextFieldProps } from "../TextField";
@@ -32,7 +32,9 @@ export function Password<
             {...props}
             type={!showPassword ? "password" : "text"}
             slotProps={{
+                ...props.slotProps,
                 input: {
+                    ...props.slotProps?.input,
                     endAdornment: (
                         <InputAdornment position="end">
                             <IconButton

@@ -1,5 +1,7 @@
-import axios, { isAxiosError } from "axios";
+import axios, { HttpStatusCode, isAxiosError } from "axios";
 import { enqueueSnackbar } from "notistack";
+
+import { AuthenticationRoutePathEnum } from "@shared/routes";
 
 import { STRONG_ERROR_MESSAGE_DURATION, TagTypesEnum } from "../constants";
 import { queryClient } from "../queryClient";
@@ -21,8 +23,8 @@ const removeTokens = () => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const responseErrorHandler = async (error: any) => {
-    if (error.status === 401) {
+export const responseErrorHandler = async (axiosError: any) => {
+    if (axiosError.status === HttpStatusCode.Unauthorized) {
         try {
             const refreshToken = refreshTokenStorage.get();
             if (refreshToken) {
@@ -34,34 +36,36 @@ export const responseErrorHandler = async (error: any) => {
                 return;
             } else {
                 removeTokens();
+                window.location.href = AuthenticationRoutePathEnum.AUTH_SIGN_IN;
             }
         } catch (error: unknown) {
-            if (isAxiosError(error) && error.status === 401) {
+            if (isAxiosError(error) && error.status === HttpStatusCode.Unauthorized) {
                 removeTokens();
+                window.location.href = AuthenticationRoutePathEnum.AUTH_SIGN_IN;
             }
         }
     }
 
-    try {
-        let message: string;
-        let status: number | string = error.status;
+    let responseError: Error | null = null;
 
-        message = "error" in error.response.data ? error.response.data.error : error.response.data.message;
+    const status: number | string = axiosError.status;
+    const message =
+        "error" in axiosError.response.data ? axiosError.response.data.error : axiosError.response.data.message;
 
-        try {
-            const errorJSON = JSON.parse(message.replace(/^[^{]*/, ""));
-            message = errorJSON?.error?.reason ?? message;
-            status = (errorJSON?.status as number) ?? status;
-        } catch (error) {
-            console.error(error);
+    enqueueSnackbar(message, {
+        variant: status === HttpStatusCode.InternalServerError ? "error" : "warning",
+        autoHideDuration: status === HttpStatusCode.InternalServerError ? STRONG_ERROR_MESSAGE_DURATION : undefined,
+    });
+
+    if (typeof status === "number") {
+        if (status < Number(HttpStatusCode.Ok) || status >= Number(HttpStatusCode.BadRequest)) {
+            responseError = new Error(message);
         }
-
-        enqueueSnackbar(message, {
-            variant: status === 500 ? "error" : "warning",
-            autoHideDuration: status === 500 ? STRONG_ERROR_MESSAGE_DURATION : undefined,
-        });
-    } catch (error) {
-        console.info(error);
-        throw error;
     }
+
+    if (responseError) {
+        throw responseError;
+    }
+
+    return axiosError;
 };

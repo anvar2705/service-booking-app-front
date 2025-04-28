@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Box } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -16,59 +14,35 @@ import {
 import { useAccountCompany } from "@entities/account";
 import { getCompanyEmployeesQueryOptions } from "@entities/company/api/getCompanyEmployees";
 import { EmployeeModel } from "@entities/employee";
-import { IconButton } from "@shared/components/buttons/IconButton";
 
+import { CellActions } from "./CellActions";
 import sx from "./EmployeesListWidget.sx";
+import { Header } from "./Header";
+import { HeaderActions } from "./HeaderActions";
+
 const columnHelper = createColumnHelper<EmployeeModel>();
 
 const columns = [
-    columnHelper.accessor("user.username", {
-        cell: (info) => info.getValue(),
-        header: () => <span>Username</span>,
+    columnHelper.display({
+        id: "username",
+        cell: (info) => info.row.original.user.username,
     }),
-    columnHelper.accessor("name", {
+    columnHelper.display({
+        id: "name",
         cell: (info) => {
             const { name, surname, patronymic } = info.row.original;
-            return `${name} ${surname} ${patronymic ?? ""}`;
+            return `${name} ${surname ?? ""} ${patronymic ?? ""}`;
         },
-        header: () => <span>Name</span>,
     }),
-    columnHelper.accessor("user.email", {
-        cell: (info) => info.getValue(),
-        header: () => <span>Email</span>,
+    columnHelper.display({
+        id: "email",
+        cell: (info) => info.row.original.user.email,
     }),
     columnHelper.display({
         id: "actions",
-        cell: () => (
-            <Box>
-                <IconButton color="primary" title="Редактировать">
-                    <EditOutlinedIcon />
-                </IconButton>
-                <IconButton color="error" title="Удалить сотрудника">
-                    <DeleteOutlineOutlinedIcon />
-                </IconButton>
-            </Box>
-        ),
-        header: "",
+        cell: CellActions,
+        header: HeaderActions,
     }),
-
-    // columnHelper.accessor("age", {
-    //     header: () => "Age",
-    //     cell: (info) => info.renderValue(),
-    //     footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor("visits", {
-    //     header: () => <span>Visits</span>,
-    //     footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor("status", {
-    //     header: "Status",
-    //     footer: (info) => info.column.id,
-    // }),
-    // columnHelper.accessor("progress", {
-    //     header: "Profile Progress",
-    //     footer: (info) => info.column.id,
-    // }),
 ];
 
 export const EmployeesListWidget = () => {
@@ -101,26 +75,8 @@ export const EmployeesListWidget = () => {
             <Box sx={sx.table}>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <Box sx={sx.tr} key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => (
-                            <Box sx={{ ...sx.th, width: header.getSize() }} key={header.id}>
-                                {header.isPlaceholder
-                                    ? null
-                                    : flexRender(header.column.columnDef.header, header.getContext())}
-                                {header.column.getCanSort() && (
-                                    <IconButton onClick={header.column.getToggleSortingHandler()}>x</IconButton>
-                                )}
-                                {/* {
-                                    {
-                                        asc: " 🔼",
-                                        desc: " 🔽",
-                                    }[header.column.getIsSorted()]
-                                } */}
-                                <Box
-                                    sx={sx.resizer}
-                                    onMouseDown={header.getResizeHandler()}
-                                    onTouchStart={header.getResizeHandler()}
-                                />
-                            </Box>
+                        {headerGroup.headers.map((headerProps) => (
+                            <Header {...headerProps} key={headerProps.id} />
                         ))}
                     </Box>
                 ))}

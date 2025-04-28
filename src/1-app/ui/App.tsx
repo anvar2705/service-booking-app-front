@@ -19,7 +19,6 @@ export function App() {
                 <MainLoading>
                     <OnlyInitialized>
                         <AuthenticationChecker />
-
                         <Layout>
                             <ErrorBoundary>
                                 <Routes />

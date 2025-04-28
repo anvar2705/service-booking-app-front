@@ -18,6 +18,7 @@ export default {
         display: "flex",
         alignItems: "center",
         padding: "0.5rem",
+        justifyContent: "space-between",
     },
     td: {
         padding: "0.5rem",

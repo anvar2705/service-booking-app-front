@@ -1,3 +1,9 @@
+import { useParams } from "react-router";
+
+import { EmployeeForm } from "@entities/employee";
+
 export const EmployeeFormPage = () => {
-    return <div>EmployeeFormPage</div>;
+    const { id, mode } = useParams();
+
+    return <EmployeeForm id={id} mode={mode} />;
 };

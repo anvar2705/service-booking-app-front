@@ -1,0 +1,26 @@
+{
+    "table": {
+        "columns": {
+            "username": "Логин",
+            "name": "ФИО",
+            "email": "Email"
+        },
+        "addEmployee": "Добавить сотрудника",
+        "editEmployee": "Редактировать сотрудника",
+        "deleteEmployee": "Удалить сотрудника",
+        "deleteEmployeeConfirmTitle": "Удалить сотрудника {{username}}?",
+        "successDeleteEmployeeMessage": "Сотрудник успешно удален"
+    },
+    "form": {
+        "addingTitle": "Создать сотрудника",
+        "editingTitle": "Редактировать сотрудника",
+        "username": "Логин",
+        "email": "Email",
+        "password": "Пароль",
+        "name": "Имя",
+        "surname": "Фамилия",
+        "save": "Сохранить",
+        "close": "Закрыть",
+        "successSaveEmployeeMessage": "Сотрудник успешно сохранен"
+    }
+}

@@ -1,5 +1,5 @@
-import { type PropsWithChildren,useMemo } from "react";
-import { createTheme,CssBaseline, ThemeProvider as MaterialThemeProvider } from "@mui/material";
+import { type PropsWithChildren, useMemo } from "react";
+import { createTheme, CssBaseline, ThemeProvider as MaterialThemeProvider } from "@mui/material";
 
 import { useLocale } from "@shared/i18n";
 import { LinkBehavior } from "@shared/routes/ui/LinkBehavior";
@@ -29,6 +29,18 @@ export function ThemeProvider({ children }: PropsWithChildren) {
                                 size: "small",
                                 fullWidth: true,
                             },
+                        },
+                        MuiTypography: {
+                            variants: [
+                                {
+                                    props: {
+                                        variant: "h1",
+                                    },
+                                    style: {
+                                        fontSize: 28,
+                                    },
+                                },
+                            ],
                         },
                         MuiSkeleton: {
                             defaultProps: {
