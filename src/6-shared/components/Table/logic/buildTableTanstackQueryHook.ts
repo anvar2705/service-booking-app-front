@@ -4,7 +4,6 @@ import type { AxiosInstance } from "axios";
 import { LIST_TAG_TYPE_ID } from "@shared/api-client";
 import { helpers, param } from "@shared/utils";
 
-import { DEFAULT_TABLE_DATA } from "../constants";
 import type { QueryOptions, TableData, TableQueryHook, TableRequestParams } from "../types";
 
 type Transform<ModelType, RecordType = ModelType> = (model: ModelType) => RecordType;
@@ -50,7 +49,6 @@ export const buildTableTanstackQueryHook =
         const { data, isFetching, refetch, error } = useQuery({
             queryFn: queryFn(axiosInstance, url, params, transform),
             queryKey: [tagType, LIST_TAG_TYPE_ID, params],
-            initialData: DEFAULT_TABLE_DATA as TableData<RecordType>,
             placeholderData: keepPreviousData,
             enabled,
             refetchOnMount: refetchOnMount ? "always" : true,

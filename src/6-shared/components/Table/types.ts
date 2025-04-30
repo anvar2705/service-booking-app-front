@@ -16,7 +16,7 @@ export type TableQueryHook<RecordType, QueryArg> = (
     params: TableRequestParams<QueryArg>,
     queryOptions?: QueryOptions,
 ) => {
-    data: TableData<RecordType>;
+    data?: TableData<RecordType>;
     isFetching: boolean;
     refetch: () => void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

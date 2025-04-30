@@ -1,8 +1,9 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Box } from "@mui/material";
 import {
     flexRender,
     getCoreRowModel,
+    PaginationState,
     // getFilteredRowModel,
     // getPaginationRowModel,
     // getSortedRowModel,
@@ -15,10 +16,16 @@ import { helpers } from "@shared/utils";
 import { TableProps } from "../types";
 
 import { Header } from "./Header";
+import { Pagination } from "./Pagination";
 import sx from "./Table.sx";
 
 export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, QueryArg>) => {
     const { columns, rows, loading, onRefetch, useQuery, queryArg, queryOptions } = props;
+
+    const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 0,
+        pageSize: 10,
+    });
 
     const localHook = useCallback(
         () => ({
@@ -36,15 +43,24 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
 
     const useTableQuery = useQuery ?? localHook;
 
-    const { data } = useTableQuery({ arg: queryArg, page: 1, page_size: 10 }, queryOptions);
+    const { data } = useTableQuery(
+        { arg: queryArg, page: pagination.pageIndex + 1, page_size: pagination.pageSize },
+        queryOptions,
+    );
 
     const table = useReactTable({
-        data: data.items,
+        data: data?.items ?? [],
         columns,
         getCoreRowModel: getCoreRowModel(),
+        manualPagination: true,
+        rowCount: data?.total ?? 0,
         // getFilteredRowModel: getFilteredRowModel(),
         // getPaginationRowModel: getPaginationRowModel(),
         // getSortedRowModel: getSortedRowModel(),
+        onPaginationChange: setPagination,
+        state: {
+            pagination,
+        },
         columnResizeMode: "onChange",
     });
 
@@ -68,6 +84,8 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
                         ))}
                     </Box>
                 ))}
+
+                <Pagination table={table} />
             </Box>
         </div>
     );

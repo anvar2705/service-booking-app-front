@@ -61,5 +61,9 @@
     },
     "header": {
         "signOut": "Выйти"
+    },
+    "table": {
+        "fromTotal": "из",
+        "pageSizeLabel": "Строк на странице:"
     }
 }
