@@ -1,4 +1,4 @@
-import { ColumnDef, RowData } from "@tanstack/react-table";
+import { ColumnDef, ColumnSort, RowData } from "@tanstack/react-table";
 
 export type TableData<T = unknown> = {
     items: T[];
@@ -10,6 +10,7 @@ export type TableRequestParams<QueryArg = void> = {
     arg?: QueryArg;
     page: number;
     page_size: number;
+    sorting?: ColumnSort;
 };
 
 export type TableQueryHook<RecordType, QueryArg> = (

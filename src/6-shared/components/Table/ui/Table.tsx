@@ -4,10 +4,8 @@ import {
     flexRender,
     getCoreRowModel,
     PaginationState,
-    // getFilteredRowModel,
-    // getPaginationRowModel,
-    // getSortedRowModel,
     RowData,
+    SortingState,
     useReactTable,
 } from "@tanstack/react-table";
 
@@ -26,6 +24,7 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
         pageIndex: 0,
         pageSize: 10,
     });
+    const [sorting, setSorting] = useState<SortingState>([]);
 
     const localHook = useCallback(
         () => ({
@@ -44,7 +43,12 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
     const useTableQuery = useQuery ?? localHook;
 
     const { data } = useTableQuery(
-        { arg: queryArg, page: pagination.pageIndex + 1, page_size: pagination.pageSize },
+        {
+            arg: queryArg,
+            page: pagination.pageIndex + 1,
+            page_size: pagination.pageSize,
+            sorting: sorting.length > 0 ? sorting[0] : undefined,
+        },
         queryOptions,
     );
 
@@ -53,13 +57,13 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
         columns,
         getCoreRowModel: getCoreRowModel(),
         manualPagination: true,
+        manualSorting: true,
         rowCount: data?.total ?? 0,
-        // getFilteredRowModel: getFilteredRowModel(),
-        // getPaginationRowModel: getPaginationRowModel(),
-        // getSortedRowModel: getSortedRowModel(),
         onPaginationChange: setPagination,
+        onSortingChange: setSorting,
         state: {
             pagination,
+            sorting,
         },
         columnResizeMode: "onChange",
     });
