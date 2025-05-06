@@ -1,0 +1,64 @@
+import { useState } from "react";
+import NorthOutlinedIcon from "@mui/icons-material/NorthOutlined";
+import SouthOutlinedIcon from "@mui/icons-material/SouthOutlined";
+import { Box, IconButton } from "@mui/material";
+import { flexRender, Header as HeaderType, RowData } from "@tanstack/react-table";
+
+import { ColumnHeaderMenu } from "./ColumnHeaderMenu";
+import sx from "./Table.sx";
+
+export const ColumnHeader = <TData extends RowData>(props: HeaderType<TData, unknown>) => {
+    const { column, isPlaceholder, getSize, getContext, getResizeHandler } = props;
+
+    const [isShowButtons, setIsShowButtons] = useState(false);
+
+    const setSorting = getContext().table.options.meta?.setSorting;
+
+    const handleToggleSorting = () => {
+        switch (column.getIsSorted()) {
+            case false: {
+                setSorting?.([{ id: column.id, desc: false }]);
+                return;
+            }
+            case "asc": {
+                setSorting?.([{ id: column.id, desc: true }]);
+                return;
+            }
+            case "desc": {
+                setSorting?.([]);
+                return;
+            }
+        }
+    };
+
+    return (
+        <>
+            <Box
+                onMouseEnter={() => setIsShowButtons(true)}
+                onMouseLeave={() => setIsShowButtons(false)}
+                sx={{ ...sx.th }}
+                style={{ width: getSize() }}
+            >
+                {isPlaceholder ? null : flexRender(column.columnDef.header, getContext())}
+
+                <Box>
+                    {column.getCanSort() && (
+                        <IconButton size="small" onClick={handleToggleSorting}>
+                            {isShowButtons && column.getIsSorted() === false && <NorthOutlinedIcon fontSize="small" />}
+                            {column.getIsSorted() === "asc" && <NorthOutlinedIcon fontSize="small" />}
+                            {column.getIsSorted() === "desc" && <SouthOutlinedIcon fontSize="small" />}
+                        </IconButton>
+                    )}
+
+                    <ColumnHeaderMenu
+                        sx={{ mr: 1, flexShrink: 0, visibility: isShowButtons ? "visible" : "hidden" }}
+                        setIsShowButtons={setIsShowButtons}
+                        {...props}
+                    />
+                </Box>
+
+                <Box sx={sx.resizer} onMouseDown={getResizeHandler()} onTouchStart={getResizeHandler()} />
+            </Box>
+        </>
+    );
+};

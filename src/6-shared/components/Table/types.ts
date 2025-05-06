@@ -1,4 +1,8 @@
-import { ColumnDef, ColumnSort, RowData } from "@tanstack/react-table";
+import { Dispatch, SetStateAction } from "react";
+import { ColumnDef, ColumnFiltersState, ColumnSort, RowData, SortingState } from "@tanstack/react-table";
+import { TypeOf } from "zod";
+
+import { FiltersSchema } from "./schemas";
 
 export type TableData<T = unknown> = {
     items: T[];
@@ -11,6 +15,7 @@ export type TableRequestParams<QueryArg = void> = {
     page: number;
     page_size: number;
     sorting?: ColumnSort;
+    filters?: ColumnFiltersState;
 };
 
 export type TableQueryHook<RecordType, QueryArg> = (
@@ -56,3 +61,14 @@ export type TableProps<RecordType extends RowData, QueryArg = void> = {
     columns: ColumnDef<RecordType>[];
     loading?: boolean;
 } & (FetcherWithQueryProps<RecordType, QueryArg> | FetcherWithoutQueryProps<RecordType>);
+
+export type FilterFormValues = TypeOf<typeof FiltersSchema>;
+
+declare module "@tanstack/table-core" {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface TableMeta<TData extends RowData> {
+        setSorting: Dispatch<SetStateAction<SortingState>>;
+        columnFilters: ColumnFiltersState;
+        setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
+    }
+}

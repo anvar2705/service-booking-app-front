@@ -64,6 +64,21 @@
     },
     "table": {
         "fromTotal": "из",
-        "pageSizeLabel": "Строк на странице:"
+        "pageSizeLabel": "Строк на странице:",
+        "columnHeaderMenu": {
+            "sortByASC": "Сортировать по возрастанию",
+            "sortByDESC": "Сортировать по убыванию",
+            "filter": "Фильтры"
+        },
+        "columnHeaderFilterPopover": {
+            "title": "Настроить фильтры",
+            "column": "Колонка",
+            "value": "Значение",
+            "add": "Добавить",
+            "apply": "Применить",
+            "reset": "Сбросить",
+            "delete": "Удалить",
+            "emptyColumnError": "Выберите значение"
+        }
     }
 }

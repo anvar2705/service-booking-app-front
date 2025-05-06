@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { Box } from "@mui/material";
 import {
+    ColumnFiltersState,
     flexRender,
     getCoreRowModel,
     PaginationState,
@@ -13,7 +14,7 @@ import { helpers } from "@shared/utils";
 
 import { TableProps } from "../types";
 
-import { Header } from "./Header";
+import { ColumnHeader } from "./ColumnHeader";
 import { Pagination } from "./Pagination";
 import sx from "./Table.sx";
 
@@ -25,6 +26,7 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
         pageSize: 10,
     });
     const [sorting, setSorting] = useState<SortingState>([]);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
     const localHook = useCallback(
         () => ({
@@ -48,6 +50,7 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
             page: pagination.pageIndex + 1,
             page_size: pagination.pageSize,
             sorting: sorting.length > 0 ? sorting[0] : undefined,
+            filters: columnFilters,
         },
         queryOptions,
     );
@@ -61,11 +64,18 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
         rowCount: data?.total ?? 0,
         onPaginationChange: setPagination,
         onSortingChange: setSorting,
+        onColumnFiltersChange: setColumnFilters,
+        columnResizeMode: "onChange",
         state: {
             pagination,
             sorting,
+            columnFilters,
         },
-        columnResizeMode: "onChange",
+        meta: {
+            setSorting,
+            columnFilters,
+            setColumnFilters,
+        },
     });
 
     return (
@@ -74,7 +84,7 @@ export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, 
                 {table.getHeaderGroups().map((headerGroup) => (
                     <Box sx={sx.tr} key={headerGroup.id}>
                         {headerGroup.headers.map((headerProps) => (
-                            <Header {...headerProps} key={headerProps.id} />
+                            <ColumnHeader {...headerProps} key={headerProps.id} />
                         ))}
                     </Box>
                 ))}

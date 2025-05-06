@@ -42,6 +42,7 @@ export const EmployeesListWidget = () => {
                 id: "actions",
                 header: HeaderActions,
                 cell: CellActions,
+                enableColumnFilter: false,
             },
         ],
         [t],
