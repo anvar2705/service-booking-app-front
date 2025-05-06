@@ -1,5 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
-import { ColumnDef, ColumnFiltersState, ColumnSort, RowData, SortingState } from "@tanstack/react-table";
+import { PopoverProps, SxProps } from "@mui/material";
+import {
+    ColumnDef,
+    ColumnFiltersState,
+    ColumnSort,
+    Header as HeaderType,
+    RowData,
+    SortingState,
+} from "@tanstack/react-table";
 import { TypeOf } from "zod";
 
 import { FiltersSchema } from "./schemas";
@@ -72,3 +80,13 @@ declare module "@tanstack/table-core" {
         setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
     }
 }
+
+export type ColumnHeaderFilterPopoverProps<TData extends RowData> = Pick<PopoverProps, "anchorEl"> &
+    HeaderType<TData, unknown> & {
+        onClose: () => void;
+    };
+
+export type ColumnHeaderMenuProps<TData extends RowData> = {
+    setIsShowButtons: Dispatch<SetStateAction<boolean>>;
+    sx?: SxProps;
+} & HeaderType<TData, unknown>;

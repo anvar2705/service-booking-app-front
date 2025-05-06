@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { Controller, useFieldArray } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -11,81 +11,28 @@ import {
     InputLabel,
     MenuItem,
     Popover,
-    PopoverProps,
     Select,
     Stack,
     Typography,
 } from "@mui/material";
-import { flexRender, Header as HeaderType, RowData } from "@tanstack/react-table";
+import { flexRender, RowData } from "@tanstack/react-table";
 
 import { IconButton } from "@shared/components/buttons/IconButton";
-import { Form, useForm } from "@shared/components/form/Form";
+import { Form } from "@shared/components/form/Form";
 import { TextField } from "@shared/components/form/TextField";
 import { NamespaceEnum } from "@shared/i18n";
 
-import { FiltersSchema } from "../schemas";
-import { FilterFormValues } from "../types";
-
-type ColumnHeaderFilterPopoverProps<TData extends RowData> = Pick<PopoverProps, "anchorEl"> &
-    HeaderType<TData, unknown> & {
-        onClose: () => void;
-    };
+import { useColumnHeaderFilterPopover } from "../logic/useColumnHeaderFilterPopover";
+import { ColumnHeaderFilterPopoverProps } from "../types";
 
 export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHeaderFilterPopoverProps<TData>) => {
-    const { anchorEl, onClose, column, getContext } = props;
+    const { anchorEl, onClose, getContext } = props;
 
     const { t } = useTranslation(NamespaceEnum.SHARED, { keyPrefix: "table.columnHeaderFilterPopover" });
 
     const selectColumnId = useId();
 
-    const columns = getContext()
-        .table.getAllColumns()
-        .filter((c) => c.getCanFilter());
-    const columnFilters = getContext().table.options.meta?.columnFilters;
-    const setColumnFilters = getContext().table.options.meta?.setColumnFilters;
-
-    const formMethods = useForm({
-        schema: FiltersSchema,
-        values:
-            columnFilters && columnFilters.length > 0
-                ? { filters: columnFilters as { id: string; value: string }[] }
-                : {
-                      filters: [
-                          {
-                              id: column.id,
-                              value: "",
-                          },
-                      ],
-                  },
-    });
-    const {
-        control,
-        reset,
-        formState: { errors },
-    } = formMethods;
-    const { fields: filters, append, remove } = useFieldArray({ control, name: "filters" });
-
-    const handleSubmit = ({ data }: { data: FilterFormValues }) => {
-        setColumnFilters?.(data.filters);
-        onClose();
-    };
-
-    const handleReset = () => {
-        reset();
-        setColumnFilters?.([]);
-    };
-
-    const handleAddFilter = () => {
-        if (columns.length > filters.length) {
-            append({ id: "", value: "" });
-        }
-    };
-
-    const handleDeleteFilter = (index: number) => () => {
-        if (filters.length > 1) {
-            remove(index);
-        }
-    };
+    const { formMethods, filters, columns, handlers } = useColumnHeaderFilterPopover(props);
 
     return (
         <Popover
@@ -101,7 +48,7 @@ export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHe
             }}
             onClose={onClose}
         >
-            <Form formMethods={formMethods} onSubmit={handleSubmit}>
+            <Form formMethods={formMethods} onSubmit={handlers.submit}>
                 <Stack sx={{ p: 1, gap: 2 }}>
                     <Typography variant="h6" sx={{ pt: 1, pl: 1 }}>
                         {t("title")}
@@ -110,7 +57,7 @@ export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHe
                     {filters.map((filter, index) => (
                         <Stack key={filter.id} sx={{ flexDirection: "row", alignItems: "flex-start", gap: 2 }}>
                             <Controller
-                                control={control}
+                                control={formMethods.control}
                                 name={`filters.${index}.id`}
                                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                                     <FormControl sx={{ m: 1, minWidth: 160 }} size="small" error={Boolean(error)}>
@@ -129,9 +76,7 @@ export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHe
                                                 </MenuItem>
                                             ))}
                                         </Select>
-                                        {errors.filters?.[index]?.id && (
-                                            <FormHelperText>{t("emptyColumnError")}</FormHelperText>
-                                        )}
+                                        {Boolean(error) && <FormHelperText>{t("emptyColumnError")}</FormHelperText>}
                                     </FormControl>
                                 )}
                             />
@@ -149,7 +94,7 @@ export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHe
 
                             <IconButton
                                 title={t("delete")}
-                                onClick={handleDeleteFilter(index)}
+                                onClick={handlers.deleteFilter(index)}
                                 sx={{ mt: 1 }}
                                 disabled={filters.length === 1}
                             >
@@ -162,7 +107,7 @@ export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHe
 
                     <Stack sx={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <Button
-                            onClick={handleAddFilter}
+                            onClick={handlers.addFilter}
                             disabled={columns.length <= filters.length}
                             variant="text"
                             startIcon={<AddIcon />}
@@ -171,7 +116,7 @@ export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHe
                         </Button>
 
                         <Stack sx={{ flexDirection: "row", gap: 2 }}>
-                            <Button onClick={handleReset} variant="outlined">
+                            <Button onClick={handlers.reset} variant="outlined">
                                 {t("reset")}
                             </Button>
                             <Button type="submit">{t("apply")}</Button>
