@@ -43,9 +43,8 @@ export const ColumnHeader = <RecordType extends RowData>(props: ColumnHeaderProp
                 onMouseLeave={() => setIsShowButtons(false)}
                 sx={{ ...sx.th }}
                 style={{ width: getSize() }}
-                draggable
             >
-                {isPlaceholder ? null : flexRender(column.columnDef.header, getContext())}
+                <Box draggable>{isPlaceholder ? null : flexRender(column.columnDef.header, getContext())}</Box>
 
                 <Box>
                     {column.getCanSort() && (

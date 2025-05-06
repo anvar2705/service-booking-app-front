@@ -17,7 +17,8 @@ export const HeaderGroup = <RecordType extends RowData>(
     const [activeId, setActiveId] = useState<string | null>(null);
 
     const handleDragStart = (event: DragEvent<HTMLDivElement>) => {
-        setActiveId((event.target as HTMLElement).id.split("-")[1]);
+        const activeIdTemp = (event.target as HTMLElement)?.closest(`.${COLUMN_HEADER_CLASSNAME}`)?.id.split("-")[1];
+        if (activeIdTemp) setActiveId(activeIdTemp);
     };
 
     const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
