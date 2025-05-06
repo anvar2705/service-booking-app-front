@@ -5,6 +5,8 @@ import {
     ColumnFiltersState,
     ColumnSort,
     Header as HeaderType,
+    OnChangeFn,
+    PaginationState,
     RowData,
     SortingState,
 } from "@tanstack/react-table";
@@ -63,11 +65,21 @@ export type FetcherWithoutQueryProps = {
     onRefetch?: () => void;
 };
 
-export type TableProps<RecordType extends RowData, QueryArg> = {
+export type TableProps<RecordType extends RowData, QueryArg> = (
+    | FetcherWithQueryProps<RecordType, QueryArg>
+    | FetcherWithoutQueryProps
+) & {
     columns: ColumnDef<RecordType>[];
     loading?: boolean;
     rows?: RecordType[];
-} & (FetcherWithQueryProps<RecordType, QueryArg> | FetcherWithoutQueryProps);
+    disableColumnReorder?: boolean;
+    paginationModel?: PaginationState;
+    onPaginationModelChange?: OnChangeFn<PaginationState>;
+    sortingModel?: SortingState;
+    onSortingModelChange?: OnChangeFn<SortingState>;
+    columnFiltersModel?: ColumnFiltersState;
+    onColumnFiltersModelChange?: OnChangeFn<ColumnFiltersState>;
+};
 
 export type FilterFormValues = TypeOf<typeof FiltersSchema>;
 
@@ -78,6 +90,7 @@ declare module "@tanstack/table-core" {
         columnFilters: ColumnFiltersState;
         setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
         setColumnOrder: Dispatch<SetStateAction<string[]>>;
+        disableColumnReorder?: boolean;
     }
 }
 

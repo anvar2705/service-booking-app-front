@@ -22,6 +22,13 @@ export default {
     },
     td: {
         padding: "0.5rem",
+        display: "flex",
+        alignItems: "center",
+    },
+    row: {
+        "&:hover": {
+            backgroundColor: (theme) => theme.palette.action.hover,
+        },
     },
     resizer: {
         position: "absolute",

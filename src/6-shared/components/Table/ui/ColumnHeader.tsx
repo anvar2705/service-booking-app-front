@@ -16,6 +16,7 @@ export const ColumnHeader = <RecordType extends RowData>(props: ColumnHeaderProp
     const [isShowButtons, setIsShowButtons] = useState(false);
 
     const setSorting = getContext().table.options.meta?.setSorting;
+    const disableColumnReorder = getContext().table.options.meta?.disableColumnReorder;
 
     const handleToggleSorting = () => {
         switch (column.getIsSorted()) {
@@ -44,7 +45,9 @@ export const ColumnHeader = <RecordType extends RowData>(props: ColumnHeaderProp
                 sx={{ ...sx.th }}
                 style={{ width: getSize() }}
             >
-                <Box draggable>{isPlaceholder ? null : flexRender(column.columnDef.header, getContext())}</Box>
+                <Box draggable={!disableColumnReorder}>
+                    {isPlaceholder ? null : flexRender(column.columnDef.header, getContext())}
+                </Box>
 
                 <Box>
                     {column.getCanSort() && (

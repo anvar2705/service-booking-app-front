@@ -13,7 +13,22 @@ import { helpers } from "@shared/utils";
 import { TableProps } from "../types";
 
 export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps<RecordType, QueryArg>) => {
-    const { columns, rows, loading, onRefetch, useQuery, queryArg, queryOptions } = props;
+    const {
+        columns,
+        rows,
+        loading,
+        onRefetch,
+        useQuery,
+        queryArg,
+        queryOptions,
+        disableColumnReorder,
+        paginationModel,
+        onPaginationModelChange,
+        sortingModel,
+        onSortingModelChange,
+        columnFiltersModel,
+        onColumnFiltersModelChange,
+    } = props;
 
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -42,10 +57,11 @@ export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps
     const { data } = useTableQuery(
         {
             arg: queryArg,
-            page: pagination.pageIndex + 1,
-            page_size: pagination.pageSize,
-            sorting: sorting.length > 0 ? sorting[0] : undefined,
-            filters: columnFilters,
+            page: paginationModel ? paginationModel.pageIndex + 1 : pagination.pageIndex + 1,
+            page_size: paginationModel ? paginationModel.pageSize : pagination.pageSize,
+            sorting:
+                sortingModel && sortingModel.length > 0 ? sortingModel[0] : sorting.length > 0 ? sorting[0] : undefined,
+            filters: columnFiltersModel ?? columnFilters,
         },
         queryOptions,
     );
@@ -57,22 +73,23 @@ export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps
         manualPagination: true,
         manualSorting: true,
         rowCount: data?.total ?? 0,
-        onPaginationChange: setPagination,
-        onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
+        onPaginationChange: onPaginationModelChange ?? setPagination,
+        onSortingChange: onSortingModelChange ?? setSorting,
+        onColumnFiltersChange: onColumnFiltersModelChange ?? setColumnFilters,
         onColumnOrderChange: setColumnOrder,
         columnResizeMode: "onChange",
         state: {
-            pagination,
-            sorting,
-            columnFilters,
+            pagination: paginationModel ?? pagination,
+            sorting: sortingModel ?? sorting,
+            columnFilters: columnFiltersModel ?? columnFilters,
             columnOrder,
         },
         meta: {
-            setSorting,
-            columnFilters,
-            setColumnFilters,
+            setSorting: onSortingModelChange ?? setSorting,
+            columnFilters: columnFiltersModel ?? columnFilters,
+            setColumnFilters: onColumnFiltersModelChange ?? setColumnFilters,
             setColumnOrder,
+            disableColumnReorder,
         },
     });
 

@@ -7,7 +7,7 @@ export const Row = <RecordType extends RowData>(props: RowType<RecordType>) => {
     const { getVisibleCells } = props;
 
     return (
-        <Box sx={sx.tr}>
+        <Box sx={{ ...sx.tr, ...sx.row }}>
             {getVisibleCells().map((cell) => (
                 <Box sx={{ ...sx.td, width: cell.column.getSize() }} key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
