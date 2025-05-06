@@ -12,7 +12,7 @@ import { helpers } from "@shared/utils";
 
 import { TableProps } from "../types";
 
-export const useTable = <TData extends RowData, QueryArg>(props: TableProps<TData, QueryArg>) => {
+export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps<RecordType, QueryArg>) => {
     const { columns, rows, loading, onRefetch, useQuery, queryArg, queryOptions } = props;
 
     const [pagination, setPagination] = useState<PaginationState>({
@@ -21,6 +21,7 @@ export const useTable = <TData extends RowData, QueryArg>(props: TableProps<TDat
     });
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [columnOrder, setColumnOrder] = useState<string[]>(columns.map((c) => c.id!));
 
     const localHook = useCallback(
         () => ({
@@ -59,18 +60,23 @@ export const useTable = <TData extends RowData, QueryArg>(props: TableProps<TDat
         onPaginationChange: setPagination,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
+        onColumnOrderChange: setColumnOrder,
         columnResizeMode: "onChange",
         state: {
             pagination,
             sorting,
             columnFilters,
+            columnOrder,
         },
         meta: {
             setSorting,
             columnFilters,
             setColumnFilters,
+            setColumnOrder,
         },
     });
 
-    return { table };
+    return {
+        table,
+    };
 };

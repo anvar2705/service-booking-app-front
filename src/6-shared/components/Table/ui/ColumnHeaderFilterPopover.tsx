@@ -25,7 +25,9 @@ import { NamespaceEnum } from "@shared/i18n";
 import { useColumnHeaderFilterPopover } from "../logic/useColumnHeaderFilterPopover";
 import { ColumnHeaderFilterPopoverProps } from "../types";
 
-export const ColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHeaderFilterPopoverProps<TData>) => {
+export const ColumnHeaderFilterPopover = <RecordType extends RowData>(
+    props: ColumnHeaderFilterPopoverProps<RecordType>,
+) => {
     const { anchorEl, onClose, getContext } = props;
 
     const { t } = useTranslation(NamespaceEnum.SHARED, { keyPrefix: "table.columnHeaderFilterPopover" });

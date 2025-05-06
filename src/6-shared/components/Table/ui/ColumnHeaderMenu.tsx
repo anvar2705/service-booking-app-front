@@ -9,12 +9,12 @@ import { useColumnHeaderMenu } from "../logic/useColumnHeaderMenu";
 
 import { ColumnHeaderFilterPopover } from "./ColumnHeaderFilterPopover";
 
-type ColumnHeaderMenuProps<TData extends RowData> = {
+type ColumnHeaderMenuProps<RecordType extends RowData> = {
     setIsShowButtons: Dispatch<SetStateAction<boolean>>;
     sx?: SxProps;
-} & HeaderType<TData, unknown>;
+} & HeaderType<RecordType, unknown>;
 
-export const ColumnHeaderMenu = <TData extends RowData>(props: ColumnHeaderMenuProps<TData>) => {
+export const ColumnHeaderMenu = <RecordType extends RowData>(props: ColumnHeaderMenuProps<RecordType>) => {
     const { sx } = props;
 
     const { anchorEl, filtersAnchorEl, menuItems, handlers } = useColumnHeaderMenu(props);

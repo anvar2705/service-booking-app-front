@@ -6,5 +6,6 @@ export { localStorage } from "./logic/localStorage";
 export { param } from "./logic/param";
 export { useDebounce } from "./logic/useDebounce";
 export { useDebouncedValue } from "./logic/useDebouncedValue";
+export { useThrottledCallback } from "./logic/useThrottledCallback";
 export { createSelectors } from "./logic/zustand";
 export * from "./types";

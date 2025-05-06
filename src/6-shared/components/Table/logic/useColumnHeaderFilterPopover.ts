@@ -6,7 +6,9 @@ import { useForm } from "@shared/components/form/Form";
 import { FiltersSchema } from "../schemas";
 import { ColumnHeaderFilterPopoverProps, FilterFormValues } from "../types";
 
-export const useColumnHeaderFilterPopover = <TData extends RowData>(props: ColumnHeaderFilterPopoverProps<TData>) => {
+export const useColumnHeaderFilterPopover = <RecordType extends RowData>(
+    props: ColumnHeaderFilterPopoverProps<RecordType>,
+) => {
     const { onClose, column, getContext } = props;
 
     const columns = getContext()

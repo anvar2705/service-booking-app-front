@@ -10,7 +10,7 @@ import { NamespaceEnum } from "@shared/i18n";
 
 import { ColumnHeaderMenuProps } from "../types";
 
-export const useColumnHeaderMenu = <TData extends RowData>(props: ColumnHeaderMenuProps<TData>) => {
+export const useColumnHeaderMenu = <RecordType extends RowData>(props: ColumnHeaderMenuProps<RecordType>) => {
     const { setIsShowButtons, column, getContext } = props;
 
     const { t } = useTranslation(NamespaceEnum.SHARED, { keyPrefix: "table.columnHeaderMenu" });

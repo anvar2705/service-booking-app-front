@@ -48,5 +48,5 @@ export const EmployeesListWidget = () => {
         [t],
     );
 
-    return <Table columns={columns} useQuery={useGetCompanyEmployeesTableQuery} queryArg={company?.uuid ?? ""} />;
+    return <Table columns={columns} useQuery={useGetCompanyEmployeesTableQuery} queryArg={company?.uuid} />;
 };

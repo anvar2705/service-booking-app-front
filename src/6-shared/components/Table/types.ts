@@ -18,7 +18,7 @@ export type TableData<T = unknown> = {
     offset: number;
 };
 
-export type TableRequestParams<QueryArg = void> = {
+export type TableRequestParams<QueryArg> = {
     arg?: QueryArg;
     page: number;
     page_size: number;
@@ -51,24 +51,23 @@ export type FetcherWithQueryProps<RecordType, QueryArg> = {
     queryOptions?: QueryOptions;
     queryArg?: QueryArg;
     queryTransformParams?: QueryTransformParams<QueryArg>;
-    rows: never;
     onRefetch?: never;
 };
 
-export type FetcherWithoutQueryProps<RecordType> = {
+export type FetcherWithoutQueryProps = {
     useQuery?: never;
     resolver?: never;
     queryArg?: never;
     queryOptions?: never;
     queryTransformParams?: never;
-    rows: RecordType[];
     onRefetch?: () => void;
 };
 
-export type TableProps<RecordType extends RowData, QueryArg = void> = {
+export type TableProps<RecordType extends RowData, QueryArg> = {
     columns: ColumnDef<RecordType>[];
     loading?: boolean;
-} & (FetcherWithQueryProps<RecordType, QueryArg> | FetcherWithoutQueryProps<RecordType>);
+    rows?: RecordType[];
+} & (FetcherWithQueryProps<RecordType, QueryArg> | FetcherWithoutQueryProps);
 
 export type FilterFormValues = TypeOf<typeof FiltersSchema>;
 
@@ -78,15 +77,18 @@ declare module "@tanstack/table-core" {
         setSorting: Dispatch<SetStateAction<SortingState>>;
         columnFilters: ColumnFiltersState;
         setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
+        setColumnOrder: Dispatch<SetStateAction<string[]>>;
     }
 }
 
-export type ColumnHeaderFilterPopoverProps<TData extends RowData> = Pick<PopoverProps, "anchorEl"> &
-    HeaderType<TData, unknown> & {
-        onClose: () => void;
-    };
+export type ColumnHeaderProps<RecordType extends RowData> = HeaderType<RecordType, unknown>;
 
-export type ColumnHeaderMenuProps<TData extends RowData> = {
+export type ColumnHeaderMenuProps<RecordType extends RowData> = {
     setIsShowButtons: Dispatch<SetStateAction<boolean>>;
     sx?: SxProps;
-} & HeaderType<TData, unknown>;
+} & HeaderType<RecordType, unknown>;
+
+export type ColumnHeaderFilterPopoverProps<RecordType extends RowData> = Pick<PopoverProps, "anchorEl"> &
+    HeaderType<RecordType, unknown> & {
+        onClose: () => void;
+    };

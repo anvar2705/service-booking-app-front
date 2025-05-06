@@ -1,34 +1,25 @@
 import { Box } from "@mui/material";
-import { flexRender, RowData } from "@tanstack/react-table";
+import { RowData } from "@tanstack/react-table";
 
 import { useTable } from "../logic/useTable";
 import { TableProps } from "../types";
 
-import { ColumnHeader } from "./ColumnHeader";
+import { HeaderGroup } from "./HeaderGroup";
 import { Pagination } from "./Pagination";
+import { Row } from "./Row";
 import sx from "./Table.sx";
 
-export const Table = <TData extends RowData, QueryArg>(props: TableProps<TData, QueryArg>) => {
+export const Table = <RecordType extends RowData, QueryArg>(props: TableProps<RecordType, QueryArg>) => {
     const { table } = useTable(props);
 
     return (
         <Box sx={sx.table}>
             {table.getHeaderGroups().map((headerGroup) => (
-                <Box sx={sx.tr} key={headerGroup.id}>
-                    {headerGroup.headers.map((headerProps) => (
-                        <ColumnHeader {...headerProps} key={headerProps.id} />
-                    ))}
-                </Box>
+                <HeaderGroup key={headerGroup.id} {...headerGroup} table={table} />
             ))}
 
             {table.getRowModel().rows.map((row) => (
-                <Box sx={sx.tr} key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                        <Box sx={{ ...sx.td, width: cell.column.getSize() }} key={cell.id}>
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </Box>
-                    ))}
-                </Box>
+                <Row key={row.id} {...row} />
             ))}
 
             <Pagination table={table} />

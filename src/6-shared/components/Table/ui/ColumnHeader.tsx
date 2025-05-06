@@ -2,12 +2,15 @@ import { useState } from "react";
 import NorthOutlinedIcon from "@mui/icons-material/NorthOutlined";
 import SouthOutlinedIcon from "@mui/icons-material/SouthOutlined";
 import { Box, IconButton } from "@mui/material";
-import { flexRender, Header as HeaderType, RowData } from "@tanstack/react-table";
+import { flexRender, RowData } from "@tanstack/react-table";
+
+import { COLUMN_HEADER_CLASSNAME } from "../constants";
+import { ColumnHeaderProps } from "../types";
 
 import { ColumnHeaderMenu } from "./ColumnHeaderMenu";
 import sx from "./Table.sx";
 
-export const ColumnHeader = <TData extends RowData>(props: HeaderType<TData, unknown>) => {
+export const ColumnHeader = <RecordType extends RowData>(props: ColumnHeaderProps<RecordType>) => {
     const { column, isPlaceholder, getSize, getContext, getResizeHandler } = props;
 
     const [isShowButtons, setIsShowButtons] = useState(false);
@@ -34,10 +37,13 @@ export const ColumnHeader = <TData extends RowData>(props: HeaderType<TData, unk
     return (
         <>
             <Box
+                id={`${COLUMN_HEADER_CLASSNAME}-${column.id}`}
+                className={COLUMN_HEADER_CLASSNAME}
                 onMouseEnter={() => setIsShowButtons(true)}
                 onMouseLeave={() => setIsShowButtons(false)}
                 sx={{ ...sx.th }}
                 style={{ width: getSize() }}
+                draggable
             >
                 {isPlaceholder ? null : flexRender(column.columnDef.header, getContext())}
 
