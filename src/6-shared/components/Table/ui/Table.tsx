@@ -19,7 +19,7 @@ export const Table = <RecordType extends RowData, QueryArg>(props: TableProps<Re
             ))}
 
             {table.getRowModel().rows.map((row) => (
-                <Row key={row.id} {...row} />
+                <Row key={row.id} {...row} table={table} />
             ))}
 
             <Pagination table={table} />

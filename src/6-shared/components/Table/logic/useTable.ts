@@ -1,26 +1,32 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
+    ColumnDef,
     ColumnFiltersState,
     getCoreRowModel,
     PaginationState,
     RowData,
+    RowSelectionState,
     SortingState,
+    TableOptions,
     useReactTable,
 } from "@tanstack/react-table";
 
 import { helpers } from "@shared/utils";
 
 import { TableProps } from "../types";
+import { getRowIdDefault, getRowSelectionColumn } from "../utils";
 
 export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps<RecordType, QueryArg>) => {
     const {
-        columns,
+        columns: columnsFromProps,
         rows,
         loading,
         onRefetch,
         useQuery,
         queryArg,
         queryOptions,
+        getRowId: getRowIdFromProps,
+        checkboxSelection = false,
         disableColumnReorder,
         paginationModel,
         onPaginationModelChange,
@@ -28,7 +34,19 @@ export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps
         onSortingModelChange,
         columnFiltersModel,
         onColumnFiltersModelChange,
+        rowSelectionModel,
+        onRowSelectionModelChange,
     } = props;
+
+    const columns = useMemo(
+        () =>
+            [checkboxSelection ? getRowSelectionColumn() : undefined, ...columnsFromProps].filter(
+                Boolean,
+            ) as ColumnDef<RecordType>[],
+        [checkboxSelection, columnsFromProps],
+    );
+
+    const getRowId = getRowIdFromProps ? getRowIdFromProps : (getRowIdDefault as TableOptions<RecordType>["getRowId"]);
 
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -37,6 +55,7 @@ export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnOrder, setColumnOrder] = useState<string[]>(columns.map((c) => c.id!));
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
     const localHook = useCallback(
         () => ({
@@ -70,6 +89,9 @@ export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps
         data: data?.items ?? [],
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getRowId,
+        enableRowSelection: true,
+        enableMultiRowSelection: checkboxSelection,
         manualPagination: true,
         manualSorting: true,
         rowCount: data?.total ?? 0,
@@ -77,18 +99,21 @@ export const useTable = <RecordType extends RowData, QueryArg>(props: TableProps
         onSortingChange: onSortingModelChange ?? setSorting,
         onColumnFiltersChange: onColumnFiltersModelChange ?? setColumnFilters,
         onColumnOrderChange: setColumnOrder,
+        onRowSelectionChange: onRowSelectionModelChange ?? setRowSelection,
         columnResizeMode: "onChange",
         state: {
             pagination: paginationModel ?? pagination,
             sorting: sortingModel ?? sorting,
             columnFilters: columnFiltersModel ?? columnFilters,
             columnOrder,
+            rowSelection: rowSelectionModel ?? rowSelection,
         },
         meta: {
             setSorting: onSortingModelChange ?? setSorting,
             columnFilters: columnFiltersModel ?? columnFilters,
             setColumnFilters: onColumnFiltersModelChange ?? setColumnFilters,
             setColumnOrder,
+            checkboxSelection,
             disableColumnReorder,
         },
     });

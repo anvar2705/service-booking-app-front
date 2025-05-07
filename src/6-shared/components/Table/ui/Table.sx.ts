@@ -30,6 +30,9 @@ export default {
             backgroundColor: (theme) => theme.palette.action.hover,
         },
     },
+    selected: {
+        backgroundColor: (theme) => theme.palette.action.hover,
+    },
     resizer: {
         position: "absolute",
         right: 0,
@@ -60,18 +63,4 @@ export default {
             },
         },
     },
-
-    // resizer: {
-    //     position: "absolute",
-    //     // opacity: 0,
-    //     top: 0,
-    //     right: 0,
-    //     height: "100%",
-    //     width: "5px",
-    //     backgroundColor: "#27bbff",
-    //     cursor: "col-resize",
-    //     // userSelect: "none",
-    //     // touchAction: "none",
-    //     borderRadius: "6px",
-    // },
 } satisfies SxStyles;

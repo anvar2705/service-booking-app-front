@@ -7,8 +7,12 @@ import {
     Header as HeaderType,
     OnChangeFn,
     PaginationState,
+    Row as RowType,
     RowData,
+    RowSelectionState,
     SortingState,
+    Table,
+    TableOptions,
 } from "@tanstack/react-table";
 import { TypeOf } from "zod";
 
@@ -72,6 +76,8 @@ export type TableProps<RecordType extends RowData, QueryArg> = (
     columns: ColumnDef<RecordType>[];
     loading?: boolean;
     rows?: RecordType[];
+    getRowId?: TableOptions<RecordType>["getRowId"];
+    checkboxSelection?: boolean;
     disableColumnReorder?: boolean;
     paginationModel?: PaginationState;
     onPaginationModelChange?: OnChangeFn<PaginationState>;
@@ -79,6 +85,8 @@ export type TableProps<RecordType extends RowData, QueryArg> = (
     onSortingModelChange?: OnChangeFn<SortingState>;
     columnFiltersModel?: ColumnFiltersState;
     onColumnFiltersModelChange?: OnChangeFn<ColumnFiltersState>;
+    rowSelectionModel?: RowSelectionState;
+    onRowSelectionModelChange?: OnChangeFn<RowSelectionState>;
 };
 
 export type FilterFormValues = TypeOf<typeof FiltersSchema>;
@@ -90,6 +98,7 @@ declare module "@tanstack/table-core" {
         columnFilters: ColumnFiltersState;
         setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
         setColumnOrder: Dispatch<SetStateAction<string[]>>;
+        checkboxSelection?: boolean;
         disableColumnReorder?: boolean;
     }
 }
@@ -105,3 +114,9 @@ export type ColumnHeaderFilterPopoverProps<RecordType extends RowData> = Pick<Po
     HeaderType<RecordType, unknown> & {
         onClose: () => void;
     };
+
+export type ValidRowModel = { id?: string | number; uuid?: string };
+
+export type RowProps<RecordType extends RowData> = RowType<RecordType> & {
+    table: Table<RecordType>;
+};
