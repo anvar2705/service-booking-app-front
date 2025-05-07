@@ -1,8 +1,8 @@
 import { AuthenticationChecker } from "@shared/authentication";
 import { ErrorBoundary } from "@shared/components/ErrorBoundary";
-import { Initializer, OnlyNotInitialized } from "@widgets/Initializer";
-import { OnlyInitialized } from "@widgets/Initializer/ui/OnlyInitialized";
-import { MainLoading } from "@widgets/MainLoading";
+import { Initializer, OnlyNotInitialized } from "@widgets/initializer";
+import { OnlyInitialized } from "@widgets/initializer/ui/OnlyInitialized";
+import { MainLoading } from "@widgets/main-loading";
 
 import { Layout } from "./layout/Layout";
 import { Providers } from "./Providers";

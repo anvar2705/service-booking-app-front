@@ -6,7 +6,7 @@ import { getAccountQueryOptions } from "@entities/account";
 import { getRefreshTokenQueryOptions } from "@shared/authentication";
 import { getAccessTokenQueryOptions } from "@shared/authentication/api/getAccessToken";
 import { AuthenticationRoutePathEnum } from "@shared/routes";
-import { useMainLoading } from "@widgets/MainLoading";
+import { useMainLoading } from "@widgets/main-loading";
 
 import { setInitiaized } from "../logic/store";
 
