@@ -3,7 +3,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Box, Divider, Drawer, IconButton } from "@mui/material";
 
 import { NamespaceEnum } from "@shared/i18n";
-import { CalendarRoutePathEnum, EmployeeRoutePathEnum, SettingsRoutePathEnum } from "@shared/routes";
 
 import { DRAWER_WIDTH } from "../constants";
 import { setMainMenuCollapsed, useMainMenuCollapsed } from "../logic/store";
@@ -22,16 +21,16 @@ export const MainMenu = () => {
 
     const MENU_ITEMS: MenuItem[] = [
         {
-            href: CalendarRoutePathEnum.CALENDAR,
+            href: "/",
             title: t("calendar"),
         },
         {
-            href: SettingsRoutePathEnum.SETTINGS,
+            href: "/settings",
             title: t("settings"),
         },
         {
-            href: EmployeeRoutePathEnum.EMPLOYEE,
-            title: t("employee"),
+            href: "/employees",
+            title: t("employees"),
         },
     ];
 

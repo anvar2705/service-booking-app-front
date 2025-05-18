@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useMatch } from "react-router";
 import { useQueries } from "@tanstack/react-query";
+import { useLocation } from "@tanstack/react-router";
 
 import { getAccountQueryOptions } from "@entities/account";
 import { getRefreshTokenQueryOptions } from "@shared/authentication";
@@ -11,8 +11,9 @@ import { useMainLoading } from "@widgets/main-loading";
 import { setInitiaized } from "../logic/store";
 
 export const Initializer = () => {
-    const isSignInPage = Boolean(useMatch(AuthenticationRoutePathEnum.AUTH_SIGN_IN));
-    const isSignUpPage = Boolean(useMatch(AuthenticationRoutePathEnum.AUTH_SIGN_UP));
+    const pathname = useLocation({ select: ({ pathname }) => pathname });
+    const isSignInPage = pathname === AuthenticationRoutePathEnum.AUTH_SIGN_IN;
+    const isSignUpPage = pathname === AuthenticationRoutePathEnum.AUTH_SIGN_UP;
 
     const [
         { isSuccess: isSuccessGetAccount, isLoading: isLoadingGetAccount },

@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { useSnackbar } from "notistack";
 
 import { useAccountCompany } from "@entities/account";
 import { useForm } from "@shared/components/form/Form";
 import { NamespaceEnum } from "@shared/i18n";
-import { EmployeeRoutePathEnum, FormModeEnum, useStaticNavigate } from "@shared/routes";
+import { FormModeEnum } from "@shared/routes";
 
 import { getEmployeeQueryOptions } from "../api/getEmployee";
 import { SaveEmployeeMutationOptions } from "../api/saveEmployee";
@@ -17,7 +18,7 @@ export const useEmployeeForm = (props: EmployeeFormProps) => {
 
     const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "form" });
 
-    const navigate = useStaticNavigate();
+    const navigate = useNavigate();
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -39,13 +40,13 @@ export const useEmployeeForm = (props: EmployeeFormProps) => {
         if (company) {
             saveEmployee({ ...data, company_uuid: company.uuid }).then(() => {
                 enqueueSnackbar({ variant: "success", message: t("successSaveEmployeeMessage") });
-                navigate(EmployeeRoutePathEnum.EMPLOYEE);
+                navigate({ to: "/employees" });
             });
         }
     };
 
     const handleClose = () => {
-        navigate(EmployeeRoutePathEnum.EMPLOYEE);
+        navigate({ to: "/employees" });
     };
 
     return {

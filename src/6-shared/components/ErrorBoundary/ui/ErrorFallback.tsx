@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useLocation } from "react-router";
 import { Button, Stack } from "@mui/material";
+import { useLocation } from "@tanstack/react-router";
 
 import { Result } from "@shared/components/Result";
 

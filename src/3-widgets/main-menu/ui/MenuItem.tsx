@@ -1,26 +1,24 @@
-import { useLocation } from "react-router";
 import { ListItem, ListItemButton, ListItemText } from "@mui/material";
-
-import { useStaticNavigate } from "@shared/routes";
+import { Link, useLocation } from "@tanstack/react-router";
 
 import { MenuItemProps } from "../types";
 
 export const MenuItem = (props: MenuItemProps) => {
     const { item } = props;
 
-    const navigate = useStaticNavigate();
-    const { pathname } = useLocation();
+    const pathname = useLocation({ select: ({ pathname }) => pathname });
     const selected = pathname === item.href;
 
-    const handleClick = () => {
-        navigate(item.href);
-    };
-
     return (
-        <ListItem disablePadding sx={{ backgroundColor: (theme) => (selected ? theme.palette.divider : undefined) }}>
-            <ListItemButton onClick={handleClick} disableRipple>
-                <ListItemText primary={item.title} />
-            </ListItemButton>
-        </ListItem>
+        <Link to={item.href}>
+            <ListItem
+                disablePadding
+                sx={{ backgroundColor: (theme) => (selected ? theme.palette.divider : undefined) }}
+            >
+                <ListItemButton disableRipple>
+                    <ListItemText primary={item.title} />
+                </ListItemButton>
+            </ListItem>
+        </Link>
     );
 };

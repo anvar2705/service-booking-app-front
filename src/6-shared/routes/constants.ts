@@ -1,9 +1,9 @@
 export const APP_ROOT_ROUT_PATH = "/";
 
-export const FormModeEnum = {
+export const FormModeEnum = Object.freeze({
     ADD: "add",
     EDIT: "edit",
-};
+});
 
 export const AuthenticationRoutePathEnum = Object.freeze({
     AUTH_ASTERISK: "/auth/*",

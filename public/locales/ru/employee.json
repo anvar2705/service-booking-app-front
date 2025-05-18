@@ -21,6 +21,10 @@
         "surname": "Фамилия",
         "save": "Сохранить",
         "close": "Закрыть",
-        "successSaveEmployeeMessage": "Сотрудник успешно сохранен"
+        "successSaveEmployeeMessage": "Сотрудник успешно сохранен",
+        "tabs": {
+            "general": "Основная информация",
+            "services": "Услуги"
+        }
     }
 }

@@ -4,10 +4,11 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button, IconButton, Menu, MenuItem, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 import { getAccountQueryOptions } from "@entities/account";
 import { signOutMutationOptions } from "@shared/authentication";
-import { AuthenticationRoutePathEnum, useStaticNavigate } from "@shared/routes";
+import { AuthenticationRoutePathEnum } from "@shared/routes";
 import { toggleMainMenuCollapsed, useMainMenuCollapsed } from "@widgets/main-menu";
 
 import { AppBar } from "./AppBar";
@@ -15,7 +16,7 @@ import { AppBar } from "./AppBar";
 export const Header = () => {
     const { t } = useTranslation();
 
-    const navigate = useStaticNavigate();
+    const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -38,7 +39,7 @@ export const Header = () => {
     };
 
     const handleSignOut = () => {
-        navigate(AuthenticationRoutePathEnum.AUTH_SIGN_IN);
+        navigate({ to: AuthenticationRoutePathEnum.AUTH_SIGN_IN });
         signOut();
     };
 

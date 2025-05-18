@@ -4,7 +4,6 @@ import { SnackbarProvider } from "notistack";
 import { DateLocalizationProvider } from "@shared/components/DateLocalizationProvider";
 import { ErrorBoundary } from "@shared/components/ErrorBoundary";
 import { I18nProvider, LanguageNameEnum, useI18n } from "@shared/i18n";
-import { RouterProvider } from "@shared/routes";
 import { ThemeProvider } from "@shared/theme";
 
 import { ReactQueryProvider } from "./ReactQueryProvider";
@@ -16,18 +15,16 @@ function DateLocalizationProviderWithLang({ children }: PropsWithChildren) {
 
 export function Providers({ children }: PropsWithChildren) {
     return (
-        <RouterProvider>
-            <ErrorBoundary>
-                <SnackbarProvider>
-                    <ReactQueryProvider>
-                        <I18nProvider>
-                            <ThemeProvider>
-                                <DateLocalizationProviderWithLang>{children}</DateLocalizationProviderWithLang>
-                            </ThemeProvider>
-                        </I18nProvider>
-                    </ReactQueryProvider>
-                </SnackbarProvider>
-            </ErrorBoundary>
-        </RouterProvider>
+        <ErrorBoundary>
+            <SnackbarProvider>
+                <ReactQueryProvider>
+                    <I18nProvider>
+                        <ThemeProvider>
+                            <DateLocalizationProviderWithLang>{children}</DateLocalizationProviderWithLang>
+                        </ThemeProvider>
+                    </I18nProvider>
+                </ReactQueryProvider>
+            </SnackbarProvider>
+        </ErrorBoundary>
     );
 }

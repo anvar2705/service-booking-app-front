@@ -1,15 +1,16 @@
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+
 import { AuthenticationChecker } from "@shared/authentication";
 import { ErrorBoundary } from "@shared/components/ErrorBoundary";
-import { Initializer, OnlyNotInitialized } from "@widgets/initializer";
-import { OnlyInitialized } from "@widgets/initializer/ui/OnlyInitialized";
+import { PageNotFound } from "@shared/components/PageNotFound";
+import { Initializer, OnlyInitialized, OnlyNotInitialized } from "@widgets/initializer";
 import { MainLoading } from "@widgets/main-loading";
 
-import { Layout } from "./layout/Layout";
-import { Providers } from "./Providers";
-import { Routes } from "./Routes";
+import { Layout } from "../ui/layout/Layout";
+import { Providers } from "../ui/Providers";
 
-export function App() {
-    return (
+export const Route = createRootRoute({
+    component: () => (
         <ErrorBoundary>
             <Providers>
                 <OnlyNotInitialized>
@@ -21,12 +22,14 @@ export function App() {
                         <AuthenticationChecker />
                         <Layout>
                             <ErrorBoundary>
-                                <Routes />
+                                <Outlet />
                             </ErrorBoundary>
                         </Layout>
                     </OnlyInitialized>
                 </MainLoading>
             </Providers>
         </ErrorBoundary>
-    );
-}
+    ),
+    notFoundComponent: () => <PageNotFound />,
+    // errorComponent: () => <div>sad</div>, // TODO
+});

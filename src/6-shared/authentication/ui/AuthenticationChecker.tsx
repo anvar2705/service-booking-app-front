@@ -1,19 +1,20 @@
 import { useEffect, useRef } from "react";
-import { useMatch } from "react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 
-import { APP_ROOT_ROUT_PATH, AuthenticationRoutePathEnum, useStaticLocation, useStaticNavigate } from "@shared/routes";
+import { APP_ROOT_ROUT_PATH, AuthenticationRoutePathEnum } from "@shared/routes";
 
 import { useIsAuthenticated } from "../logic/useIsAuthenticated";
 
 export function AuthenticationChecker() {
-    const { pathname } = useStaticLocation();
-    const navigate = useStaticNavigate();
-    const signInPagePathMatch = useMatch(AuthenticationRoutePathEnum.AUTH_SIGN_IN);
+    const pathname = useLocation({ select: ({ pathname }) => pathname });
+    const navigate = useNavigate();
+    const isSignInPage = pathname === AuthenticationRoutePathEnum.AUTH_SIGN_IN;
+    const isSignUpPage = pathname === AuthenticationRoutePathEnum.AUTH_SIGN_UP;
+
     const isAuthenticated = useIsAuthenticated();
     const restorePathNameRef = useRef(APP_ROOT_ROUT_PATH);
 
-    const isSignInPage = Boolean(signInPagePathMatch);
-    const isShouldGoToSignInPage = !isAuthenticated && !isSignInPage;
+    const isShouldGoToSignInPage = !isAuthenticated && !isSignInPage && !isSignUpPage;
     const isShouldReturnToPreviousPageOrToRoot = isAuthenticated && isSignInPage;
 
     let path: string | null = null;
@@ -36,7 +37,7 @@ export function AuthenticationChecker() {
             return;
         }
 
-        void navigate(path, { replace });
+        void navigate({ to: path, replace });
     }, [navigate, path, replace]);
 
     return null;

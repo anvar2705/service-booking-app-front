@@ -1,10 +1,10 @@
-import { Box, Link, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
+import { Link } from "@tanstack/react-router";
 
 import { LoadingButton } from "@shared/components/buttons/LoadingButton";
 import { Form } from "@shared/components/form/Form";
 import { Password } from "@shared/components/form/Password";
 import { TextField } from "@shared/components/form/TextField";
-import { AuthenticationRoutePathEnum } from "@shared/routes";
 
 import { LoginSchemaFieldNameEnum } from "../constants";
 import { useSignInForm } from "../logic/useSignInForm";
@@ -26,7 +26,9 @@ export function SignInForm() {
                     </LoadingButton>
                     <Box>
                         <span>{t("signInForm.signUpHelperText")}</span>{" "}
-                        <Link href={AuthenticationRoutePathEnum.AUTH_SIGN_UP}>{t("signInForm.signUp")}</Link>
+                        <Link to={"/auth/sign-up"} style={{ textDecoration: "underline" }}>
+                            {t("signInForm.signUp")}
+                        </Link>
                     </Box>
                 </Stack>
             </Form>

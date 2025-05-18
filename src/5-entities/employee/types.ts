@@ -1,6 +1,7 @@
 import { TypeOf } from "zod";
 
 import { UserModel } from "@entities/user";
+import { FormMode } from "@shared/routes";
 
 import { AddEmployeeSchema, EditEmployeeSchema } from "./schemas";
 
@@ -14,8 +15,8 @@ export interface EmployeeModel {
 }
 
 export type EmployeeFormProps = {
-    id?: string;
-    mode?: string;
+    id: string;
+    mode: FormMode;
 };
 
 export type AddEmployeeFormValues = TypeOf<typeof AddEmployeeSchema>;

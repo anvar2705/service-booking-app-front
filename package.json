@@ -19,6 +19,7 @@
         "@mui/x-data-grid": "^7.28.3",
         "@mui/x-date-pickers": "^7.28.3",
         "@tanstack/react-query": "^5.72.2",
+        "@tanstack/react-router": "^1.120.2",
         "@tanstack/react-table": "^8.21.3",
         "axios": "^1.8.4",
         "dayjs": "^1.11.13",
@@ -33,7 +34,6 @@
         "react-error-boundary": "^5.0.0",
         "react-hook-form": "^7.55.0",
         "react-i18next": "^15.4.1",
-        "react-router": "^7.5.0",
         "zod": "^3.24.2",
         "zod-i18n-map": "^2.27.0",
         "zustand": "^5.0.3"
@@ -41,6 +41,7 @@
     "devDependencies": {
         "@eslint/js": "^9.21.0",
         "@tanstack/eslint-plugin-query": "^5.72.2",
+        "@tanstack/router-plugin": "^1.120.2",
         "@types/node": "^22.14.0",
         "@types/react": "^19.0.10",
         "@types/react-dom": "^19.0.4",
