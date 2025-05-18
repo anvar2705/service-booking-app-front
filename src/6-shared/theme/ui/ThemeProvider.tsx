@@ -37,7 +37,8 @@ export function ThemeProvider({ children }: PropsWithChildren) {
                                         variant: "h1",
                                     },
                                     style: {
-                                        fontSize: 28,
+                                        fontSize: 32,
+                                        marginBottom: 12,
                                     },
                                 },
                             ],

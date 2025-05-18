@@ -4,6 +4,7 @@ import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 
+import { useAccount } from "@entities/account";
 import { deleteEmployeeMutationOptions, EmployeeModel } from "@entities/employee";
 import { IconButton } from "@shared/components/buttons/IconButton";
 import { ConfirmDialog } from "@shared/components/ConfirmDialog";
@@ -32,6 +33,8 @@ export const DeleteEmployeeCellAction = (props: DeleteEmployeeCellActionProps) =
         });
     };
 
+    const data = useAccount();
+
     return (
         <ConfirmDialog
             translations={{
@@ -47,7 +50,7 @@ export const DeleteEmployeeCellAction = (props: DeleteEmployeeCellActionProps) =
                 color="error"
                 title={t("table.deleteEmployee")}
                 onClick={handleDeleteEmployee}
-                disabled={isPending}
+                disabled={isPending || data?.id === id}
             >
                 <DeleteOutlineOutlinedIcon />
             </IconButton>

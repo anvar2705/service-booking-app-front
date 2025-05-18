@@ -15,7 +15,7 @@ export interface EmployeeModel {
 }
 
 export type EmployeeFormProps = {
-    id: string;
+    id?: string;
     mode: FormMode;
 };
 

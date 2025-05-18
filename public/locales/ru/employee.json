@@ -1,4 +1,5 @@
 {
+    "employeesListTitle": "Список сотрудников",
     "table": {
         "columns": {
             "username": "Логин",
