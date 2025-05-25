@@ -9,7 +9,8 @@
         "title": "Регистрация",
         "signUp": "Зарегистрироваться",
         "signInHelperText": "Или",
-        "signIn": "войти"
+        "signIn": "войти",
+        "companyName": "Название компании"
     },
     "changePasswordForm": {
         "invalidPasswordConfirmation": "Пароли не совпадают"

@@ -10,10 +10,10 @@ export const MAX_LOGIN_LENGTH = 30;
 export const MIN_PASSWORD_LENGTH = 3;
 export const MAX_PASSWORD_LENGTH = 30;
 
-export const LoginSchemaFieldNameEnum = Object.freeze({
-    LOGIN: "username",
+export const AuthSchemaFieldNameEnum = Object.freeze({
+    USERNAME: "username",
     EMAIL: "email",
-    PASSWORD_OLD: "password_old",
     PASSWORD: "password",
     PASSWORD_CONFIRMATION: "password_confirmation",
+    COMPANY_NAME: "company_name",
 } as const);

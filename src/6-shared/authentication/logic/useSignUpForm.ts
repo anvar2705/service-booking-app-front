@@ -1,24 +1,29 @@
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 import { useForm } from "@shared/components/form/Form";
 import { NamespaceEnum } from "@shared/i18n";
 
-import { signInMutationOptions } from "../api/signIn";
-import { BaseLoginSchema } from "../schemas";
-import { LoginFormValues } from "../types";
+import { signUpMutationOptions } from "../api/signUp";
+import { SignUpSchema } from "../schemas";
+import { SignUpFormValues } from "../types";
 
 export const useSignUpForm = () => {
+    const navigate = useNavigate();
+
     const { t } = useTranslation(NamespaceEnum.AUTHENTICATION);
 
     const formMethods = useForm({
-        schema: BaseLoginSchema,
+        schema: SignUpSchema,
     });
 
-    const { mutateAsync: signIn, isPending } = useMutation(signInMutationOptions);
+    const { mutateAsync: signUp, isPending } = useMutation(signUpMutationOptions);
 
-    const handleSignIn = ({ data }: { data: LoginFormValues }) => {
-        signIn(data).then(() => {});
+    const handleSignUp = ({ data }: { data: SignUpFormValues }) => {
+        signUp(data).then(() => {
+            navigate({ to: "/" });
+        });
     };
 
     return {
@@ -26,7 +31,7 @@ export const useSignUpForm = () => {
         formMethods,
         isPending,
         handlers: {
-            signIn: handleSignIn,
+            signUp: handleSignUp,
         },
     };
 };

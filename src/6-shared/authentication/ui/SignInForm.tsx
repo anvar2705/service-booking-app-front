@@ -6,7 +6,7 @@ import { Form } from "@shared/components/form/Form";
 import { Password } from "@shared/components/form/Password";
 import { TextField } from "@shared/components/form/TextField";
 
-import { LoginSchemaFieldNameEnum } from "../constants";
+import { AuthSchemaFieldNameEnum } from "../constants";
 import { useSignInForm } from "../logic/useSignInForm";
 
 export function SignInForm() {
@@ -19,8 +19,8 @@ export function SignInForm() {
                     <Typography variant="h5" sx={{ textAlign: "center" }}>
                         {t("signInForm.title")}
                     </Typography>
-                    <TextField name={LoginSchemaFieldNameEnum.LOGIN} label={t("forms.login")} />
-                    <Password name={LoginSchemaFieldNameEnum.PASSWORD} label={t("forms.password")} />
+                    <TextField name={AuthSchemaFieldNameEnum.USERNAME} label={t("forms.login")} />
+                    <Password name={AuthSchemaFieldNameEnum.PASSWORD} label={t("forms.password")} />
                     <LoadingButton loading={isPending} type={"submit"}>
                         {t("signInForm.signIn")}
                     </LoadingButton>

@@ -1,10 +1,10 @@
 import type { TypeOf } from "zod";
 
 import type { InitializationStatusEnum } from "./constants";
-import type { BaseLoginSchema, PasswordConfirmationSchemaWithRefine } from "./schemas";
+import type { SignInSchema, SignUpSchema } from "./schemas";
 
 export type InitializationStatus = (typeof InitializationStatusEnum)[keyof typeof InitializationStatusEnum];
 
-export type PasswordFormValues = TypeOf<typeof PasswordConfirmationSchemaWithRefine>;
+export type SignInFormValues = TypeOf<typeof SignInSchema>;
 
-export type LoginFormValues = TypeOf<typeof BaseLoginSchema>;
+export type SignUpFormValues = TypeOf<typeof SignUpSchema>;

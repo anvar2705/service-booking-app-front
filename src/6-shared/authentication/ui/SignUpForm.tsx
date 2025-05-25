@@ -6,7 +6,7 @@ import { Form } from "@shared/components/form/Form";
 import { Password } from "@shared/components/form/Password";
 import { TextField } from "@shared/components/form/TextField";
 
-import { LoginSchemaFieldNameEnum } from "../constants";
+import { AuthSchemaFieldNameEnum } from "../constants";
 import { useSignUpForm } from "../logic/useSignUpForm";
 
 export function SignUpForm() {
@@ -14,13 +14,15 @@ export function SignUpForm() {
 
     return (
         <Box sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Form formMethods={formMethods} onSubmit={handlers.signIn}>
+            <Form formMethods={formMethods} onSubmit={handlers.signUp}>
                 <Stack sx={{ gap: 2 }}>
                     <Typography variant="h5" sx={{ textAlign: "center" }}>
                         {t("signUpForm.title")}
                     </Typography>
+                    <TextField name={AuthSchemaFieldNameEnum.COMPANY_NAME} label={t("signUpForm.companyName")} />
+                    <TextField name={AuthSchemaFieldNameEnum.EMAIL} label={t("forms.email")} />
                     <TextField
-                        name={LoginSchemaFieldNameEnum.LOGIN}
+                        name={AuthSchemaFieldNameEnum.USERNAME}
                         label={t("forms.login")}
                         slotProps={{
                             htmlInput: {
@@ -29,7 +31,7 @@ export function SignUpForm() {
                         }}
                     />
                     <Password
-                        name={LoginSchemaFieldNameEnum.PASSWORD}
+                        name={AuthSchemaFieldNameEnum.PASSWORD}
                         label={t("forms.password")}
                         slotProps={{
                             htmlInput: {
@@ -38,8 +40,8 @@ export function SignUpForm() {
                         }}
                     />
                     <Password
-                        name={LoginSchemaFieldNameEnum.PASSWORD_CONFIRMATION}
-                        label={t("forms.password_confirmation")}
+                        name={AuthSchemaFieldNameEnum.PASSWORD_CONFIRMATION}
+                        label={t("forms.passwordConfirmation")}
                     />
                     <LoadingButton loading={isPending} type={"submit"}>
                         {t("signUpForm.signUp")}

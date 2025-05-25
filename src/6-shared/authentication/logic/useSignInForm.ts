@@ -5,19 +5,19 @@ import { useForm } from "@shared/components/form/Form";
 import { NamespaceEnum } from "@shared/i18n";
 
 import { signInMutationOptions } from "../api/signIn";
-import { BaseLoginSchema } from "../schemas";
-import { LoginFormValues } from "../types";
+import { SignInSchema } from "../schemas";
+import { SignInFormValues } from "../types";
 
 export const useSignInForm = () => {
     const { t } = useTranslation(NamespaceEnum.AUTHENTICATION);
 
     const formMethods = useForm({
-        schema: BaseLoginSchema,
+        schema: SignInSchema,
     });
 
     const { mutateAsync: signIn, isPending } = useMutation(signInMutationOptions);
 
-    const handleSignIn = ({ data }: { data: LoginFormValues }) => {
+    const handleSignIn = ({ data }: { data: SignInFormValues }) => {
         signIn(data);
     };
 

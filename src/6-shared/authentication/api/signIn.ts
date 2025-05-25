@@ -9,10 +9,10 @@ import {
 } from "@shared/api-client";
 import { TagTypesEnum } from "@shared/api-client";
 
-import type { LoginFormValues } from "../types";
+import type { SignInFormValues } from "../types";
 
-export const signInMutationOptions: UseMutationOptions<void, DefaultError, LoginFormValues> = {
-    mutationFn: async (credentials: LoginFormValues) => {
+export const signInMutationOptions: UseMutationOptions<void, DefaultError, SignInFormValues> = {
+    mutationFn: async (credentials: SignInFormValues) => {
         const response = (await axiosInstance.post<TokensData>("/auth/sign-in", credentials)).data;
         const { access_token, refresh_token } = response;
         accessTokenStorage.set(access_token);
