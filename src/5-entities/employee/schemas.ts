@@ -2,16 +2,16 @@ import { z } from "zod";
 
 import { PasswordSchema } from "@shared/authentication";
 
-export const EmployeeSchema = z.object({
+export const BaseEmployeeSchema = z.object({
     username: z.string(),
     name: z.string(),
     surname: z.string().nullish(),
     email: z.string().email().nullish(),
 });
 
-export const AddEmployeeSchema = EmployeeSchema.and(PasswordSchema);
+export const NewEmployeeSchema = BaseEmployeeSchema.and(PasswordSchema);
 
-export const EditEmployeeSchema = EmployeeSchema.and(
+export const EmployeeSchema = BaseEmployeeSchema.and(
     z.object({
         id: z.coerce.number(),
     }),

@@ -14,44 +14,29 @@ import { HeaderActions } from "./HeaderActions";
 export const EmployeeServicesListWidget = (props: ServicesListWidgetProps) => {
     const { employeeId } = props;
 
-    const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "servicesList.columns" });
+    const { t } = useTranslation(NamespaceEnum.SERVICE, { keyPrefix: "servicesList.columns" });
 
     const columns: ColumnDef<ServiceModel>[] = [
         {
+            accessorFn: (row) => row.name,
             id: "name",
             header: t("name"),
-            cell: (info) => info.getValue(),
         },
         {
+            accessorFn: (row) => row.price_from,
             id: "price_from",
             header: t("price_from"),
-            cell: (info) => info.getValue(),
         },
         {
+            accessorFn: (row) => row.price_to,
             id: "price_to",
             header: t("price_to"),
-            cell: (info) => info.getValue(),
         },
         {
+            accessorFn: (row) => row.duration,
             id: "duration",
             header: t("duration"),
-            cell: (info) => info.getValue(),
         },
-        // {
-        //     id: "name",
-        //     header: t("name"),
-        //     cell: (info) => {
-        //         const { name, surname, patronymic } = info.row.original;
-        //         if (!name && !surname && !patronymic) return "-";
-        //         return `${name} ${surname ?? ""} ${patronymic ?? ""}`;
-        //     },
-        // },
-        // {
-        //     accessorFn: (row) => row.user.email,
-        //     id: "email",
-        //     header: t("email"),
-        //     cell: (info) => info.getValue(),
-        // },
         {
             id: "actions",
             header: () => <HeaderActions employeeId={employeeId} />,

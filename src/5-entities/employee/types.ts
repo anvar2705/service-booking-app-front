@@ -4,7 +4,7 @@ import { ServiceModel } from "@entities/service";
 import { UserModel } from "@entities/user";
 import { FormMode } from "@shared/routes";
 
-import { AddEmployeeSchema, EditEmployeeSchema } from "./schemas";
+import { EmployeeSchema, NewEmployeeSchema } from "./schemas";
 
 export interface EmployeeModel {
     id: number;
@@ -24,11 +24,20 @@ export type EmployeeFormProps = {
     mode: FormMode;
 };
 
-export type AddEmployeeFormValues = TypeOf<typeof AddEmployeeSchema>;
-export type EditEmployeeFormValues = TypeOf<typeof EditEmployeeSchema>;
+export type AddEmployeeFormValues = TypeOf<typeof NewEmployeeSchema>;
+export type EditEmployeeFormValues = TypeOf<typeof EmployeeSchema>;
 export type EmployeeFormValues = AddEmployeeFormValues | EditEmployeeFormValues;
 
 export type UnpinServicePayload = {
     employeeId: EmployeeModel["id"];
     uuid: ServiceModel["uuid"];
+};
+
+export type SaveEmployeePayload = EmployeeFormValues & {
+    companyUUID: string;
+};
+
+export type AddServicesToEmployeePayload = {
+    employeeId: EmployeeModel["id"];
+    uuids: ServiceModel["uuid"][];
 };

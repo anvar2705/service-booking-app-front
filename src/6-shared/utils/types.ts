@@ -75,6 +75,6 @@ export type SxStyles = Record<string, Sx>;
 export type TimeoutId = ReturnType<typeof setTimeout> | null;
 
 export type WorkflowDate = {
-    created_at: string | null;
-    updated_at: string | null;
+    created_at?: string | null;
+    updated_at?: string | null;
 };

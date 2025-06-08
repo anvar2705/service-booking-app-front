@@ -1,10 +1,6 @@
 import { axiosInstance, LIST_TAG_TYPE_ID, queryClient, TagTypesEnum, UseMutationOptions } from "@shared/api-client";
 
-import { EditEmployeeFormValues, EmployeeFormValues, EmployeeModel } from "../types";
-
-type SaveEmployeePayload = EmployeeFormValues & {
-    company_uuid: string;
-};
+import { EditEmployeeFormValues, EmployeeFormValues, EmployeeModel, SaveEmployeePayload } from "../types";
 
 function isEditing(data: EmployeeFormValues): data is EditEmployeeFormValues {
     return Boolean((data as EditEmployeeFormValues)?.id);

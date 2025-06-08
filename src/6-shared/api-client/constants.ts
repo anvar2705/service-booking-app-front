@@ -19,6 +19,7 @@ export const TagTypesEnum = Object.freeze({
     ACCOUNT: "ACCOUNT",
     EMPLOYEE: "EMPLOYEE",
     EMPLOYEE_SERVICES: "EMPLOYEE_SERVICES",
+    SERVICE: "SERVICE",
     COMPANY: "COMPANY",
     COMPANY_EMPLOYEE: "COMPANY_EMPLOYEE",
 } as const);

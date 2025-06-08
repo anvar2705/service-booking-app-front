@@ -7,10 +7,10 @@ import { IconButton } from "@shared/components/buttons/IconButton";
 import { NamespaceEnum } from "@shared/i18n";
 
 export const AddServiceHeaderAction = ({ employeeId }: { employeeId: EmployeeModel["id"] }) => {
-    const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "servicesList" });
+    const { t } = useTranslation(NamespaceEnum.SERVICE, { keyPrefix: "servicesList" });
 
     return (
-        <Link to={`/employees/edit/$employeeId/services/add`} params={{ employeeId: employeeId.toString() }}>
+        <Link to={`/employees/edit/$employeeId/services/add`} params={{ employeeId }}>
             <IconButton color="primary" title={t("addService")}>
                 <AddOutlinedIcon />
             </IconButton>

@@ -22,7 +22,6 @@ export const EmployeesListWidget = () => {
                 accessorFn: (row) => row.user.username,
                 id: "username",
                 header: t("username"),
-                cell: (info) => info.getValue(),
             },
             {
                 id: "name",
@@ -37,7 +36,6 @@ export const EmployeesListWidget = () => {
                 accessorFn: (row) => row.user.email,
                 id: "email",
                 header: t("email"),
-                cell: (info) => info.getValue(),
             },
             {
                 id: "actions",

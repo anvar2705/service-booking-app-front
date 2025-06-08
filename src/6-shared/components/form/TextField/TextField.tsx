@@ -34,7 +34,15 @@ export function TextField<
             render={(props) => {
                 const { field, fieldState } = props;
                 const { error } = fieldState;
-                const { value = "", ref, onChange: fieldOnChange, onBlur: fieldOnBlur, ...fieldProps } = field;
+                const {
+                    value: fieldValue = "",
+                    ref,
+                    onChange: fieldOnChange,
+                    onBlur: fieldOnBlur,
+                    ...fieldProps
+                } = field;
+                const value =
+                    fieldValue && textFieldProps.type === "number" ? Number(fieldValue).toString() : fieldValue;
 
                 return (
                     <MuiTextField
@@ -49,7 +57,7 @@ export function TextField<
                             onBlur?.(...args);
                         }}
                         inputRef={ref}
-                        value={value ?? ""}
+                        value={value}
                         error={Boolean(error) || undefined}
                         helperText={error?.message ?? helperText}
                         required={textFieldProps.required ?? Boolean(rules?.required)}

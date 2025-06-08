@@ -12,6 +12,7 @@ export const NamespaceEnum = Object.freeze({
     ZOD: "zod",
     AUTHENTICATION: "authentication",
     EMPLOYEE: "employee",
+    SERVICE: "service",
 } as const);
 
 export const LocaleEnum = Object.freeze({

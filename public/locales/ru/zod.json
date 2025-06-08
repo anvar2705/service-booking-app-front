@@ -1,7 +1,7 @@
 {
     "errors": {
-        "invalid_type": "Ожидался тип - {{expected}}, получено - {{received}}",
-        "invalid_type_with_path": "Поле {{path}} ожидает тип - {{expected}}, получено - {{received}}",
+        "invalid_type": "Обязательное поле",
+        "invalid_type_with_path": "Обязательное поле",
         "invalid_type_received_undefined": "Обязательное поле",
         "invalid_type_received_null": "Обязательное поле",
         "invalid_literal": "Неверное значение литерала, ожидалось {{expected}}",

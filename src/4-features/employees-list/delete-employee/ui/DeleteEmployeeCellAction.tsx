@@ -39,8 +39,8 @@ export const DeleteEmployeeCellAction = (props: DeleteEmployeeCellActionProps) =
         <ConfirmDialog
             translations={{
                 title: t("employeesList.deleteEmployeeConfirmTitle", { username }),
-                confirm: t("forms.delete"),
-                cancel: t("forms.cancel"),
+                confirm: t("form.delete"),
+                cancel: t("form.cancel"),
             }}
             icon={<ErrorOutlineOutlinedIcon color="error" />}
             onConfirm={handleDeleteEmployee}

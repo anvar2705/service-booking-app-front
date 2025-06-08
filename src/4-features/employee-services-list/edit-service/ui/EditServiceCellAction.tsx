@@ -15,7 +15,7 @@ type EditServiceCellActionProps = {
 export const EditServiceCellAction = (props: EditServiceCellActionProps) => {
     const { employeeId, uuid } = props;
 
-    const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "servicesList" });
+    const { t } = useTranslation(NamespaceEnum.SERVICE, { keyPrefix: "servicesList" });
 
     return (
         <Link to="/employees/edit/$employeeId/services/edit/$serviceId" params={{ employeeId, serviceId: uuid }}>

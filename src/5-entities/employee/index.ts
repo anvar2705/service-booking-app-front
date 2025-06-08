@@ -1,3 +1,4 @@
+export { addServiceEmployeeMutationOptions } from "./api/addServiceToEmployee";
 export { deleteEmployeeMutationOptions } from "./api/deleteEmployee";
 export { useGetEmployeeServicesTableQuery } from "./api/getEmployeeServices";
 export { unpinServiceMutationOptions } from "./api/unpinService";

@@ -1,0 +1,28 @@
+{
+    "servicesList": {
+        "columns": {
+            "name": "Наименование",
+            "price_from": "Цена от",
+            "price_to": "Цена до",
+            "duration": "Длительность"
+        },
+        "addService": "Добавить услугу",
+        "editService": "Редактировать услугу",
+        "unpinService": "Открепить услугу от сотрудника",
+        "unpinServiceConfirmTitle": "Открепить услугу '{{serviceName}}' от сотрудника {{username}}?",
+        "successUnpinServiceMessage": "Услуга успешно откреплена"
+    },
+    "form": {
+        "addServiceForEmployeeTitle": "Добавить услугу сотруднику",
+        "addingTitle": "Создать услугу",
+        "editingTitle": "Редактировать услугу",
+        "name": "Наименование",
+        "priceFrom": "Цена от",
+        "priceTo": "Цена до",
+        "duration": "Длительность (в минутах)",
+        "successSaveServiceMessage": "Услуга успешно сохранена",
+        "errors": {
+            "priceToLowerThenPriceFrom": "Цена до не может быть меньше цены от"
+        }
+    }
+}
