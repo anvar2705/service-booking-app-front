@@ -4,41 +4,36 @@ import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
 import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 
-import { useAccount } from "@entities/account";
-import { deleteEmployeeMutationOptions, EmployeeModel } from "@entities/employee";
+import { EmployeeModel, unpinServiceMutationOptions } from "@entities/employee";
+import { ServiceModel } from "@entities/service";
 import { IconButton } from "@shared/components/buttons/IconButton";
 import { ConfirmDialog } from "@shared/components/ConfirmDialog";
 import { NamespaceEnum } from "@shared/i18n";
-type DeleteEmployeeCellActionProps = {
-    employee: EmployeeModel;
+
+type UnpinServiceCellActionProps = {
+    employeeId: EmployeeModel["id"];
+    service: ServiceModel;
 };
 
-export const DeleteEmployeeCellAction = (props: DeleteEmployeeCellActionProps) => {
-    const {
-        employee: {
-            id,
-            user: { username },
-        },
-    } = props;
+export const UnpinServiceCellAction = (props: UnpinServiceCellActionProps) => {
+    const { employeeId, service } = props;
 
     const { t } = useTranslation(NamespaceEnum.EMPLOYEE);
 
-    const { mutateAsync: deleteEmployee, isPending } = useMutation(deleteEmployeeMutationOptions);
+    const { mutateAsync: unpinService, isPending } = useMutation(unpinServiceMutationOptions);
 
     const { enqueueSnackbar } = useSnackbar();
 
     const handleDeleteEmployee = () => {
-        deleteEmployee(id).then(() => {
-            enqueueSnackbar(t("employeesList.successDeleteEmployeeMessage"), { variant: "success" });
+        unpinService({ employeeId, uuid: service.uuid }).then(() => {
+            enqueueSnackbar(t("servicesList.successUnpinServiceMessage"), { variant: "success" });
         });
     };
-
-    const data = useAccount();
 
     return (
         <ConfirmDialog
             translations={{
-                title: t("employeesList.deleteEmployeeConfirmTitle", { username }),
+                title: t("servicesList.unpinServiceConfirmTitle", { serviceName: service.name }),
                 confirm: t("forms.delete"),
                 cancel: t("forms.cancel"),
             }}
@@ -48,9 +43,9 @@ export const DeleteEmployeeCellAction = (props: DeleteEmployeeCellActionProps) =
         >
             <IconButton
                 color="error"
-                title={t("employeesList.deleteEmployee")}
+                title={t("servicesList.unpinService")}
                 onClick={handleDeleteEmployee}
-                disabled={isPending || data?.id === id}
+                disabled={isPending}
             >
                 <DeleteOutlineOutlinedIcon />
             </IconButton>

@@ -8,55 +8,52 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 // Import Routes
 
 import { Route as rootRoute } from './1-app/routes/__root'
+import { Route as IndexImport } from './1-app/routes/index'
+import { Route as SettingsIndexImport } from './1-app/routes/settings/index'
+import { Route as EmployeesIndexImport } from './1-app/routes/employees/index'
+import { Route as SettingsSettingsTabImport } from './1-app/routes/settings/$settingsTab'
+import { Route as EmployeesAddImport } from './1-app/routes/employees/add'
 import { Route as AuthSignUpImport } from './1-app/routes/auth/sign-up'
 import { Route as AuthSignInImport } from './1-app/routes/auth/sign-in'
-
-// Create Virtual Routes
-
-const SettingsLazyImport = createFileRoute('/settings')()
-const IndexLazyImport = createFileRoute('/')()
-const EmployeesIndexLazyImport = createFileRoute('/employees/')()
-const EmployeesAddLazyImport = createFileRoute('/employees/add')()
-const EmployeesEditEmployeeIdLazyImport = createFileRoute(
-  '/employees/edit/$employeeId',
-)()
+import { Route as EmployeesEditEmployeeIdImport } from './1-app/routes/employees/edit.$employeeId'
+import { Route as EmployeesEditEmployeeIdServicesIndexImport } from './1-app/routes/employees/edit_.$employeeId.services/index'
+import { Route as EmployeesEditEmployeeIdServicesAddImport } from './1-app/routes/employees/edit_.$employeeId.services/add'
+import { Route as EmployeesEditEmployeeIdServicesEditServiceIdImport } from './1-app/routes/employees/edit_.$employeeId.services/edit.$serviceId'
 
 // Create/Update Routes
 
-const SettingsLazyRoute = SettingsLazyImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./1-app/routes/settings.lazy').then((d) => d.Route),
-)
-
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./1-app/routes/index.lazy').then((d) => d.Route))
+} as any)
 
-const EmployeesIndexLazyRoute = EmployeesIndexLazyImport.update({
+const SettingsIndexRoute = SettingsIndexImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EmployeesIndexRoute = EmployeesIndexImport.update({
   id: '/employees/',
   path: '/employees/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./1-app/routes/employees/index.lazy').then((d) => d.Route),
-)
+} as any)
 
-const EmployeesAddLazyRoute = EmployeesAddLazyImport.update({
+const SettingsSettingsTabRoute = SettingsSettingsTabImport.update({
+  id: '/settings/$settingsTab',
+  path: '/settings/$settingsTab',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EmployeesAddRoute = EmployeesAddImport.update({
   id: '/employees/add',
   path: '/employees/add',
   getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./1-app/routes/employees/add.lazy').then((d) => d.Route),
-)
+} as any)
 
 const AuthSignUpRoute = AuthSignUpImport.update({
   id: '/auth/sign-up',
@@ -70,16 +67,32 @@ const AuthSignInRoute = AuthSignInImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const EmployeesEditEmployeeIdLazyRoute =
-  EmployeesEditEmployeeIdLazyImport.update({
-    id: '/employees/edit/$employeeId',
-    path: '/employees/edit/$employeeId',
+const EmployeesEditEmployeeIdRoute = EmployeesEditEmployeeIdImport.update({
+  id: '/employees/edit/$employeeId',
+  path: '/employees/edit/$employeeId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EmployeesEditEmployeeIdServicesIndexRoute =
+  EmployeesEditEmployeeIdServicesIndexImport.update({
+    id: '/employees/edit_/$employeeId/services/',
+    path: '/employees/edit/$employeeId/services/',
     getParentRoute: () => rootRoute,
-  } as any).lazy(() =>
-    import('./1-app/routes/employees/edit.$employeeId.lazy').then(
-      (d) => d.Route,
-    ),
-  )
+  } as any)
+
+const EmployeesEditEmployeeIdServicesAddRoute =
+  EmployeesEditEmployeeIdServicesAddImport.update({
+    id: '/employees/edit_/$employeeId/services/add',
+    path: '/employees/edit/$employeeId/services/add',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const EmployeesEditEmployeeIdServicesEditServiceIdRoute =
+  EmployeesEditEmployeeIdServicesEditServiceIdImport.update({
+    id: '/employees/edit_/$employeeId/services/edit/$serviceId',
+    path: '/employees/edit/$employeeId/services/edit/$serviceId',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -89,14 +102,7 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/auth/sign-in': {
@@ -117,21 +123,56 @@ declare module '@tanstack/react-router' {
       id: '/employees/add'
       path: '/employees/add'
       fullPath: '/employees/add'
-      preLoaderRoute: typeof EmployeesAddLazyImport
+      preLoaderRoute: typeof EmployeesAddImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings/$settingsTab': {
+      id: '/settings/$settingsTab'
+      path: '/settings/$settingsTab'
+      fullPath: '/settings/$settingsTab'
+      preLoaderRoute: typeof SettingsSettingsTabImport
       parentRoute: typeof rootRoute
     }
     '/employees/': {
       id: '/employees/'
       path: '/employees'
       fullPath: '/employees'
-      preLoaderRoute: typeof EmployeesIndexLazyImport
+      preLoaderRoute: typeof EmployeesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsIndexImport
       parentRoute: typeof rootRoute
     }
     '/employees/edit/$employeeId': {
       id: '/employees/edit/$employeeId'
       path: '/employees/edit/$employeeId'
       fullPath: '/employees/edit/$employeeId'
-      preLoaderRoute: typeof EmployeesEditEmployeeIdLazyImport
+      preLoaderRoute: typeof EmployeesEditEmployeeIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/employees/edit_/$employeeId/services/add': {
+      id: '/employees/edit_/$employeeId/services/add'
+      path: '/employees/edit/$employeeId/services/add'
+      fullPath: '/employees/edit/$employeeId/services/add'
+      preLoaderRoute: typeof EmployeesEditEmployeeIdServicesAddImport
+      parentRoute: typeof rootRoute
+    }
+    '/employees/edit_/$employeeId/services/': {
+      id: '/employees/edit_/$employeeId/services/'
+      path: '/employees/edit/$employeeId/services'
+      fullPath: '/employees/edit/$employeeId/services'
+      preLoaderRoute: typeof EmployeesEditEmployeeIdServicesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/employees/edit_/$employeeId/services/edit/$serviceId': {
+      id: '/employees/edit_/$employeeId/services/edit/$serviceId'
+      path: '/employees/edit/$employeeId/services/edit/$serviceId'
+      fullPath: '/employees/edit/$employeeId/services/edit/$serviceId'
+      preLoaderRoute: typeof EmployeesEditEmployeeIdServicesEditServiceIdImport
       parentRoute: typeof rootRoute
     }
   }
@@ -140,85 +181,120 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
-  '/settings': typeof SettingsLazyRoute
+  '/': typeof IndexRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/employees/add': typeof EmployeesAddLazyRoute
-  '/employees': typeof EmployeesIndexLazyRoute
-  '/employees/edit/$employeeId': typeof EmployeesEditEmployeeIdLazyRoute
+  '/employees/add': typeof EmployeesAddRoute
+  '/settings/$settingsTab': typeof SettingsSettingsTabRoute
+  '/employees': typeof EmployeesIndexRoute
+  '/settings': typeof SettingsIndexRoute
+  '/employees/edit/$employeeId': typeof EmployeesEditEmployeeIdRoute
+  '/employees/edit/$employeeId/services/add': typeof EmployeesEditEmployeeIdServicesAddRoute
+  '/employees/edit/$employeeId/services': typeof EmployeesEditEmployeeIdServicesIndexRoute
+  '/employees/edit/$employeeId/services/edit/$serviceId': typeof EmployeesEditEmployeeIdServicesEditServiceIdRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
-  '/settings': typeof SettingsLazyRoute
+  '/': typeof IndexRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/employees/add': typeof EmployeesAddLazyRoute
-  '/employees': typeof EmployeesIndexLazyRoute
-  '/employees/edit/$employeeId': typeof EmployeesEditEmployeeIdLazyRoute
+  '/employees/add': typeof EmployeesAddRoute
+  '/settings/$settingsTab': typeof SettingsSettingsTabRoute
+  '/employees': typeof EmployeesIndexRoute
+  '/settings': typeof SettingsIndexRoute
+  '/employees/edit/$employeeId': typeof EmployeesEditEmployeeIdRoute
+  '/employees/edit/$employeeId/services/add': typeof EmployeesEditEmployeeIdServicesAddRoute
+  '/employees/edit/$employeeId/services': typeof EmployeesEditEmployeeIdServicesIndexRoute
+  '/employees/edit/$employeeId/services/edit/$serviceId': typeof EmployeesEditEmployeeIdServicesEditServiceIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/settings': typeof SettingsLazyRoute
+  '/': typeof IndexRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/employees/add': typeof EmployeesAddLazyRoute
-  '/employees/': typeof EmployeesIndexLazyRoute
-  '/employees/edit/$employeeId': typeof EmployeesEditEmployeeIdLazyRoute
+  '/employees/add': typeof EmployeesAddRoute
+  '/settings/$settingsTab': typeof SettingsSettingsTabRoute
+  '/employees/': typeof EmployeesIndexRoute
+  '/settings/': typeof SettingsIndexRoute
+  '/employees/edit/$employeeId': typeof EmployeesEditEmployeeIdRoute
+  '/employees/edit_/$employeeId/services/add': typeof EmployeesEditEmployeeIdServicesAddRoute
+  '/employees/edit_/$employeeId/services/': typeof EmployeesEditEmployeeIdServicesIndexRoute
+  '/employees/edit_/$employeeId/services/edit/$serviceId': typeof EmployeesEditEmployeeIdServicesEditServiceIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/settings'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/employees/add'
+    | '/settings/$settingsTab'
     | '/employees'
+    | '/settings'
     | '/employees/edit/$employeeId'
+    | '/employees/edit/$employeeId/services/add'
+    | '/employees/edit/$employeeId/services'
+    | '/employees/edit/$employeeId/services/edit/$serviceId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/settings'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/employees/add'
+    | '/settings/$settingsTab'
     | '/employees'
+    | '/settings'
     | '/employees/edit/$employeeId'
+    | '/employees/edit/$employeeId/services/add'
+    | '/employees/edit/$employeeId/services'
+    | '/employees/edit/$employeeId/services/edit/$serviceId'
   id:
     | '__root__'
     | '/'
-    | '/settings'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/employees/add'
+    | '/settings/$settingsTab'
     | '/employees/'
+    | '/settings/'
     | '/employees/edit/$employeeId'
+    | '/employees/edit_/$employeeId/services/add'
+    | '/employees/edit_/$employeeId/services/'
+    | '/employees/edit_/$employeeId/services/edit/$serviceId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  SettingsLazyRoute: typeof SettingsLazyRoute
+  IndexRoute: typeof IndexRoute
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
-  EmployeesAddLazyRoute: typeof EmployeesAddLazyRoute
-  EmployeesIndexLazyRoute: typeof EmployeesIndexLazyRoute
-  EmployeesEditEmployeeIdLazyRoute: typeof EmployeesEditEmployeeIdLazyRoute
+  EmployeesAddRoute: typeof EmployeesAddRoute
+  SettingsSettingsTabRoute: typeof SettingsSettingsTabRoute
+  EmployeesIndexRoute: typeof EmployeesIndexRoute
+  SettingsIndexRoute: typeof SettingsIndexRoute
+  EmployeesEditEmployeeIdRoute: typeof EmployeesEditEmployeeIdRoute
+  EmployeesEditEmployeeIdServicesAddRoute: typeof EmployeesEditEmployeeIdServicesAddRoute
+  EmployeesEditEmployeeIdServicesIndexRoute: typeof EmployeesEditEmployeeIdServicesIndexRoute
+  EmployeesEditEmployeeIdServicesEditServiceIdRoute: typeof EmployeesEditEmployeeIdServicesEditServiceIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
-  SettingsLazyRoute: SettingsLazyRoute,
+  IndexRoute: IndexRoute,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
-  EmployeesAddLazyRoute: EmployeesAddLazyRoute,
-  EmployeesIndexLazyRoute: EmployeesIndexLazyRoute,
-  EmployeesEditEmployeeIdLazyRoute: EmployeesEditEmployeeIdLazyRoute,
+  EmployeesAddRoute: EmployeesAddRoute,
+  SettingsSettingsTabRoute: SettingsSettingsTabRoute,
+  EmployeesIndexRoute: EmployeesIndexRoute,
+  SettingsIndexRoute: SettingsIndexRoute,
+  EmployeesEditEmployeeIdRoute: EmployeesEditEmployeeIdRoute,
+  EmployeesEditEmployeeIdServicesAddRoute:
+    EmployeesEditEmployeeIdServicesAddRoute,
+  EmployeesEditEmployeeIdServicesIndexRoute:
+    EmployeesEditEmployeeIdServicesIndexRoute,
+  EmployeesEditEmployeeIdServicesEditServiceIdRoute:
+    EmployeesEditEmployeeIdServicesEditServiceIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -232,19 +308,20 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/settings",
         "/auth/sign-in",
         "/auth/sign-up",
         "/employees/add",
+        "/settings/$settingsTab",
         "/employees/",
-        "/employees/edit/$employeeId"
+        "/settings/",
+        "/employees/edit/$employeeId",
+        "/employees/edit_/$employeeId/services/add",
+        "/employees/edit_/$employeeId/services/",
+        "/employees/edit_/$employeeId/services/edit/$serviceId"
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
-    },
-    "/settings": {
-      "filePath": "settings.lazy.tsx"
+      "filePath": "index.tsx"
     },
     "/auth/sign-in": {
       "filePath": "auth/sign-in.tsx"
@@ -253,13 +330,28 @@ export const routeTree = rootRoute
       "filePath": "auth/sign-up.tsx"
     },
     "/employees/add": {
-      "filePath": "employees/add.lazy.tsx"
+      "filePath": "employees/add.tsx"
+    },
+    "/settings/$settingsTab": {
+      "filePath": "settings/$settingsTab.tsx"
     },
     "/employees/": {
-      "filePath": "employees/index.lazy.tsx"
+      "filePath": "employees/index.tsx"
+    },
+    "/settings/": {
+      "filePath": "settings/index.tsx"
     },
     "/employees/edit/$employeeId": {
-      "filePath": "employees/edit.$employeeId.lazy.tsx"
+      "filePath": "employees/edit.$employeeId.tsx"
+    },
+    "/employees/edit_/$employeeId/services/add": {
+      "filePath": "employees/edit_.$employeeId.services/add.tsx"
+    },
+    "/employees/edit_/$employeeId/services/": {
+      "filePath": "employees/edit_.$employeeId.services/index.tsx"
+    },
+    "/employees/edit_/$employeeId/services/edit/$serviceId": {
+      "filePath": "employees/edit_.$employeeId.services/edit.$serviceId.tsx"
     }
   }
 }

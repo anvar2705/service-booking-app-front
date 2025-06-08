@@ -5,10 +5,12 @@ import { DeleteEmployeeCellAction } from "@features/employees-list/delete-employ
 import { EditEmployeeCellAction } from "@features/employees-list/edit-employee";
 
 export const CellActions = (props: CellContext<EmployeeModel, unknown>) => {
+    const { row } = props;
+
     return (
         <>
-            <EditEmployeeCellAction id={props.row.original.id} />
-            <DeleteEmployeeCellAction employee={props.row.original} />
+            <EditEmployeeCellAction id={row.original.id} />
+            <DeleteEmployeeCellAction employee={row.original} />
         </>
     );
 };

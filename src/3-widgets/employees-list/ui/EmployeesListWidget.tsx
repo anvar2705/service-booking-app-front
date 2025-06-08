@@ -14,7 +14,7 @@ import { HeaderActions } from "./HeaderActions";
 export const EmployeesListWidget = () => {
     const company = useAccountCompany();
 
-    const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "table.columns" });
+    const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "employeesList.columns" });
 
     const columns: ColumnDef<EmployeeModel>[] = useMemo(
         () => [
@@ -29,6 +29,7 @@ export const EmployeesListWidget = () => {
                 header: t("name"),
                 cell: (info) => {
                     const { name, surname, patronymic } = info.row.original;
+                    if (!name && !surname && !patronymic) return "-";
                     return `${name} ${surname ?? ""} ${patronymic ?? ""}`;
                 },
             },

@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { Typography } from "@mui/material";
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { NamespaceEnum } from "@shared/i18n";
-import { EmployeesListWidget } from "@widgets/lists/employees";
+import { EmployeesListWidget } from "@widgets/employees-list";
 
-export const Route = createLazyFileRoute("/employees/")({
+export const Route = createFileRoute("/employees/")({
     component: EmployeesList,
 });
 

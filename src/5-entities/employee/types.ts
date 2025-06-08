@@ -1,5 +1,6 @@
 import { TypeOf } from "zod";
 
+import { ServiceModel } from "@entities/service";
 import { UserModel } from "@entities/user";
 import { FormMode } from "@shared/routes";
 
@@ -14,11 +15,20 @@ export interface EmployeeModel {
     user: UserModel;
 }
 
+export type EmployeeFormTitleProps = {
+    mode: FormMode;
+};
+
 export type EmployeeFormProps = {
-    id?: string;
+    id?: EmployeeModel["id"];
     mode: FormMode;
 };
 
 export type AddEmployeeFormValues = TypeOf<typeof AddEmployeeSchema>;
 export type EditEmployeeFormValues = TypeOf<typeof EditEmployeeSchema>;
 export type EmployeeFormValues = AddEmployeeFormValues | EditEmployeeFormValues;
+
+export type UnpinServicePayload = {
+    employeeId: EmployeeModel["id"];
+    uuid: ServiceModel["uuid"];
+};

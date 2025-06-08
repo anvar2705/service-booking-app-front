@@ -1,6 +1,6 @@
 {
     "employeesListTitle": "Список сотрудников",
-    "table": {
+    "employeesList": {
         "columns": {
             "username": "Логин",
             "name": "ФИО",
@@ -11,6 +11,19 @@
         "deleteEmployee": "Удалить сотрудника",
         "deleteEmployeeConfirmTitle": "Удалить сотрудника {{username}}?",
         "successDeleteEmployeeMessage": "Сотрудник успешно удален"
+    },
+    "servicesList": {
+        "columns": {
+            "name": "Наименование",
+            "price_from": "Цена от",
+            "price_to": "Цена до",
+            "duration": "Длительность"
+        },
+        "addService": "Добавить услугу",
+        "editService": "Редактировать услугу",
+        "unpinService": "Открепить услугу от сотрудника",
+        "unpinServiceConfirmTitle": "Открепить услугу {{serviceName}} от сотрудника {{username}}?",
+        "successUnpinServiceMessage": "Услуга успешно откреплена"
     },
     "form": {
         "addingTitle": "Создать сотрудника",

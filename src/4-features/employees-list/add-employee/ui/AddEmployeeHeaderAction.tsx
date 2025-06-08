@@ -6,7 +6,7 @@ import { IconButton } from "@shared/components/buttons/IconButton";
 import { NamespaceEnum } from "@shared/i18n";
 
 export const AddEmployeeHeaderAction = () => {
-    const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "table" });
+    const { t } = useTranslation(NamespaceEnum.EMPLOYEE, { keyPrefix: "employeesList" });
 
     return (
         <Link to="/employees/add">
